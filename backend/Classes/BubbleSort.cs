@@ -1,4 +1,4 @@
-﻿namespace Backend
+﻿namespace Backend.Classes
 {
     public static class BubbleSort
     {
@@ -14,14 +14,14 @@
                 for (int j = 1; j < listToSort.Count; j++)
                 {
                     IncrementOpCount();
-                    if (listToSort[j] < listToSort[j-1])
+                    if (listToSort[j] < listToSort[j - 1])
                     {
-                        swap(listToSort, j, j-1);
+                        swap(listToSort, j, j - 1);
                     }
                 }
             }
 
-            //Now sorted list
+            //Now bubble sorted list
             SetList(listToSort);
 
             return listToSort;
@@ -32,6 +32,7 @@
             int temp = list[index1];
             list[index1] = list[index2];
             list[index2] = temp;
+            AddToLog(list, $"Swapped {list[index1]} and {list[index2]}");
         }
 
         public static List<int> GetList()
@@ -54,8 +55,9 @@
             _count++;
         }
 
-        public static void AddToLog(Log logItem)
+        public static void AddToLog(List<int> logList, string msg)
         {
+            Log logItem = new Log(logList, msg);
             _log.Add(logItem);
         }
 
@@ -63,18 +65,12 @@
         {
             return _log;
         }
-        
+
         public static void Reset()
         {
             _count = 0;
             _log = [];
             _list = [];
         }
-    }
-
-    public class Log(List<int> list, string msg)
-    {
-        public readonly List<int> _list = list;
-        public readonly string _msg = msg;
     }
 }
