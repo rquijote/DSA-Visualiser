@@ -9,36 +9,45 @@ namespace AlgorithmTests
         BubbleSort bubbleSort = new BubbleSort();
 
         [TestMethod]
-        public void Bubble_Sort_Returns_Correct_Result()
+        public void Bubble_Sort_Returns_Correct_Results_()
         {
             List<int> input = new List<int> { 6, 3, 8, 9, 2 };
             List<int> expected = [2, 3, 6, 8, 9];
             List<int> result = bubbleSort.Sort(input);
             CollectionAssert.AreEqual(result, expected);
         }
-  
+
         [TestMethod]
-        public void Bubble_Sort_Returns_Correct_Operations()
+        public void Bubble_Sort_Returns_Correct_Results_2()
         {
-            int expectedOpCount = 20;
-            List<int> input = new List<int> { 6, 3, 8, 9, 2 };
-            bubbleSort.Sort(input);
-            int result = bubbleSort.GetOpCount();
-            Assert.AreEqual(expectedOpCount, result);
+            List<int> input = new List<int> { 7, 2, 5, 9 };
+            List<int> expected = [2, 5, 7, 9];
+            List<int> result = bubbleSort.Sort(input);
+            CollectionAssert.AreEqual(result, expected);
         }
 
         [TestMethod]
-        public void Reset_Clears_All_Sorts()
+        public void Bubble_Sort_Returns_Correct_Results_3()
+        {
+            List<int> input = new List<int> { 0, 0, 8, 9 };
+            List<int> expected = [0, 0, 8, 9];
+            List<int> result = bubbleSort.Sort(input);
+            CollectionAssert.AreEqual(result, expected);
+        }
+
+        [TestMethod]
+        public void Bubble_Sort_Reset_Returns_Empty_Values()
         {
             List<int> input = new List<int> { 6, 3, 8, 9, 2 };
             bubbleSort.Sort(input);
             bubbleSort.Reset();
-            int result = bubbleSort.GetOpCount();
-            Assert.AreEqual(0, result);
+            List<Log> result = bubbleSort.GetLog();
+            List<Log> expected = [];
+            CollectionAssert.AreEqual(expected, result);
         }
         
         [TestMethod]
-        public void Sorts_Returns_Log()
+        public void Bubble_Sort_Returns_Log()
         {
             List<int> input = new List<int> { 6, 3, 8, 9, 2 };
             bubbleSort.Sort(input);

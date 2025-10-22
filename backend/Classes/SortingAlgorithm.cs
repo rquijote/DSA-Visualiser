@@ -3,12 +3,11 @@
     public class SortingAlgorithm
     {
         private List<int> _list = [];
-        private int _count = 0;
         private List<Log> _log = [];
 
-        public virtual List<int> Sort(List<int> listToSort)
+        public virtual List<int> Sort(List<int> list)
         {
-            return listToSort;
+            return list;
         }
 
         public List<int> GetList()
@@ -19,16 +18,6 @@
         public void SetList(List<int> list)
         {
             _list = list;
-        }
-
-        public int GetOpCount()
-        {
-            return _count;
-        }
-
-        public void IncrementOpCount()
-        {
-            _count++;
         }
 
         public void AddToLog(List<int> logList, string msg)
@@ -44,7 +33,6 @@
 
         public void Reset()
         {
-            _count = 0;
             _log = [];
             _list = [];
         }

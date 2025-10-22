@@ -2,24 +2,26 @@
 {
     public class BubbleSort : SortingAlgorithm
     {
-        public override List<int> Sort(List<int> listToSort)
+        public override List<int> Sort(List<int> list)
         {
-            for (int i = 0; i < listToSort.Count; i++)
+            for (int i = 0; i < list.Count - 1; i++)
             {
-                for (int j = 1; j < listToSort.Count; j++)
+                for (int j = 1; j < list.Count; j++)
                 {
-                    IncrementOpCount();
-                    if (listToSort[j] < listToSort[j - 1])
+                    if (list[j] < list[j - 1])
                     {
-                        Swap(listToSort, j, j - 1);
+                        Swap(list, j, j - 1);
+                    } else
+                    {
+                        AddToLog(list, "No swap");
                     }
                 }
             }
 
             //Now bubble sorted list
-            SetList(listToSort);
+            SetList(list);
 
-            return listToSort;
+            return list;
         }
 
         private void Swap(List<int> list, int index1, int index2)
