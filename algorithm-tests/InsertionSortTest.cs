@@ -3,54 +3,54 @@ using Backend.Classes;
 namespace AlgorithmTests;
 
 [TestClass]
-public class SelectionSortTest
+public class InsertionSortTest
 {
-    SelectionSort selectionSort = new SelectionSort();
+    InsertionSort insertionSort = new InsertionSort();
 
     [TestMethod]
-    public void Selection_Sort_Returns_Correct_Results()
+    public void Insertion_Sort_Returns_Correct_Results()
     {
         List<int> input = new List<int> { 6, 3, 8, 9, 2 };
         List<int> expected = [2, 3, 6, 8, 9];
-        List<int> result = selectionSort.Sort(input);
+        List<int> result = insertionSort.Sort(input);
         CollectionAssert.AreEqual(result, expected);
     }
 
     [TestMethod]
-    public void Selection_Sort_Returns_Correct_Results_2()
+    public void Insertion_Sort_Returns_Correct_Results_2()
     {
         List<int> input = new List<int> { 7, 2, 5, 9 };
         List<int> expected = [2, 5, 7, 9];
-        List<int> result = selectionSort.Sort(input);
+        List<int> result = insertionSort.Sort(input);
         CollectionAssert.AreEqual(result, expected);
     }
 
     [TestMethod]
-    public void Selection_Sort_Returns_Correct_Results_3()
+    public void Insertion_Sort_Returns_Correct_Results_3()
     {
         List<int> input = new List<int> { 0, 0, 8, 9 };
         List<int> expected = [0, 0, 8, 9];
-        List<int> result = selectionSort.Sort(input);
+        List<int> result = insertionSort.Sort(input);
         CollectionAssert.AreEqual(result, expected);
     }
 
     [TestMethod]
-    public void Selection_Sort_Reset_Returns_Empty_Values()
+    public void Insertion_Sort_Reset_Returns_Empty_Values()
     {
         List<int> input = new List<int> { 6, 3, 8, 9, 2 };
-        selectionSort.Sort(input);
-        selectionSort.Reset();
-        List<Log> result = selectionSort.GetLog();
+        insertionSort.Sort(input);
+        insertionSort.Reset();
+        List<Log> result = insertionSort.GetLog();
         List<Log> expected = [];
         CollectionAssert.AreEqual(expected, result);
     }
 
     [TestMethod]
-    public void Selection_Sort_Returns_Log()
+    public void Insertion_Sort_Returns_Log()
     {
         List<int> input = new List<int> { 6, 3, 8, 9, 2 };
-        selectionSort.Sort(input);
-        List<Log> logList = selectionSort.GetLog();
+        insertionSort.Sort(input);
+        List<Log> logList = insertionSort.GetLog();
         Assert.IsNotNull(logList);
     }
 

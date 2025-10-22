@@ -22,7 +22,7 @@
 
         public void AddToLog(List<int> logList, string msg)
         {
-            Log logItem = new Log(logList, msg);
+            Log logItem = new Log(new List<int>(logList), msg);
             _log.Add(logItem);
         }
 
