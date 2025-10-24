@@ -6,30 +6,33 @@
         {
             for (int i = 1; i < list.Count; i++)
             {
-                // temp saves the current list[i] value
                 int temp = list[i];
-                // j is saved which takes values on the left
                 int j = i - 1;
-                if (j >= 0 && list[j] > temp)
+                bool moved = false;
+
+                while (j >= 0 && list[j] > temp)
                 {
-                    // while there are left numbers and triggers when temp needs to be moved
-                    while (j >= 0 && list[j] > temp)
-                    {
-                        list[j + 1] = list[j];
-                        AddToLog(list, $"Moved {list[j]} to the right.");
-                        // decrements until it's not a lower int to temp
-                        j--;
-                    }
-                } else
-                {
-                    AddToLog(list, "No changes");
+                    list[j + 1] = list[j];
+                    AddToLog(list, $"Shifted {list[j]} from index {j} to index {j + 1}");
+                    j--;
+                    moved = true;
                 }
-                // uses that existing j value to find the left value of the index to replace.
-                // + 1 to get to the correct index. 
+
                 list[j + 1] = temp;
+
+                if (moved)
+                {
+                    AddToLog(list, $"Inserted {temp} at index {j + 1}. Current list: [{string.Join(", ", list)}]");
+                }
+                else
+                {
+                    AddToLog(list, $"No movement needed for {temp} at index {i}");
+                }
             }
 
+            AddToLog(list, $"Final sorted list: [{string.Join(", ", list)}]");
             return list;
         }
     }
 }
+
