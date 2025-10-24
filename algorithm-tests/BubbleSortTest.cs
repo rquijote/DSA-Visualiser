@@ -53,8 +53,7 @@ namespace AlgorithmTests
             bubbleSort.Sort(input);
             List<Log> logList = bubbleSort.GetLog();
             Assert.IsNotNull(logList);
+            Assert.AreNotEqual(0, logList.Count);
         }
-
-        // Add edge cases here if needed
     }
 }

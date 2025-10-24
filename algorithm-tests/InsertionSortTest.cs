@@ -52,6 +52,7 @@ public class InsertionSortTest
         insertionSort.Sort(input);
         List<Log> logList = insertionSort.GetLog();
         Assert.IsNotNull(logList);
+        Assert.AreNotEqual(0, logList.Count);
     }
 
     // Add edge cases here if needed
