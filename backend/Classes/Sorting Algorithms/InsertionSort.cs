@@ -1,5 +1,5 @@
 ﻿namespace Backend.Classes
-{
+{ 
     public class InsertionSort : SortingAlgorithm
     {
         public override List<int> Sort(List<int> list)
