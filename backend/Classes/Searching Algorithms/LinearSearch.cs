@@ -9,15 +9,15 @@
             for (int i = 0; i < list.Count; i++) 
             {
                 incrementIterations();
-                AddToLog(list, $"Checking value {list[i]} at index {i}");
+                AddToLog(list, $"Checking value {list[i]} at index: {i}");
                 if (list[i] == number)
                 {
                     index = i;
-                    AddToLog(list, $"Found {number} at index {i}");
+                    AddToLog(list, $"Found {number} at index: {i}");
                     return index;
                 }
             }
-            AddToLog(list, $"{number} not found in the list.");
+            AddToLog(list, $"Value: {number} not found in the list.");
             return index;
         }
     }
