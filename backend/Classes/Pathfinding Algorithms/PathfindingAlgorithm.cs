@@ -16,7 +16,7 @@
             return _iterations;
         }
 
-        public void incrementIterations()
+        public void IncrementIterations()
         {
             _iterations++;
         }
@@ -29,6 +29,17 @@
         public List<Log> GetLog()
         {
             return _log;
+        }
+
+        public Log GetSingleLog(int logIndex)
+        {
+            return _log[logIndex];
+        }
+
+        public virtual List<int> Search(Dictionary<int, List<int>> graph, int startNode, int target)
+        {
+            List<int> list = new List<int>();
+            return list;
         }
     }
 }

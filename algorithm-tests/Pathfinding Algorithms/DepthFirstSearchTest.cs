@@ -25,6 +25,62 @@ public class DepthFirstSearchTest
     }
 
     [TestMethod]
+    public void DFS_Returns_Correct_Search()
+    {
+        Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>
+        {
+            {1, new List<int> { 2, 3 } },
+            {2, new List<int> { 4 } },
+            {3, new List<int> { 5 } },
+            {4, new List<int>() },
+            {5, new List<int>() },
+        };
+
+        List<int> result = dfs.Search(graph, 1, 5);
+        List<int> expected = [1, 3, 5];
+        CollectionAssert.AreEqual(expected, result);
+    }
+
+    [TestMethod]
+    public void DFS_Returns_Cannot_Find_Search()
+    {
+        Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>
+        {
+            {1, new List<int> { 2, 3 } },
+            {2, new List<int> { 4 } },
+            {3, new List<int> { 5 } },
+            {4, new List<int>() },
+            {5, new List<int>() },
+        };
+
+        List<int> result = dfs.Search(graph, 1, 9);
+        List<int> expected = [1, 3, 5, 2, 4];
+        CollectionAssert.AreEqual(expected, result);
+        string expectedString = "Target node 9 not found in graph.";
+        List<Log> logList = dfs.GetLog();
+        Log resultLog = dfs.GetSingleLog(logList.Count-1);
+        Assert.AreEqual(expectedString, resultLog.GetMsg());
+    }
+
+    [TestMethod]
+    public void DFS_Get_Iterations_Correct()
+    {
+        Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>
+        {
+            {1, new List<int> { 2, 3 } },
+            {2, new List<int> { 4 } },
+            {3, new List<int> { 5 } },
+            {4, new List<int>() },
+            {5, new List<int>() },
+        };
+
+        dfs.Traverse(graph, 1);
+        int result = dfs.GetIterations();
+        int expected = 5;
+        Assert.AreEqual(expected, result);
+    }
+
+    [TestMethod]
     public void DFS_Wont_Repeat_Visited_Nodes()
     {
         Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>
