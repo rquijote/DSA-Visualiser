@@ -1,11 +1,11 @@
 ﻿namespace Backend.Classes
 {
-    public class BreadthFirstSearch : PathfindingAlgorithm
+    public class DepthFirstSearch : PathfindingAlgorithm
     {
         public override List<int> Traverse(Dictionary<int, List<int>> graph, int startNode)
         {
             HashSet<int> visited = new HashSet<int>();
-            Queue<int> queue = new Queue<int>();
+            Stack<int> stack = new Stack<int>();
             List<int> result = new List<int>();
 
             if (!graph.ContainsKey(startNode))
@@ -14,24 +14,25 @@
                 return result;
             }
 
-            queue.Enqueue(startNode);
+            stack.Push(startNode);
             visited.Add(startNode);
 
-            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(", ", visited)}");
+            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}");
 
-            while (queue.Count > 0)
+            while (stack.Count > 0)
             {
-                int current = queue.Dequeue();
+                int current = stack.Pop();
                 result.Add(current);
+
                 AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]");
 
                 foreach (int node in graph[current])
                 {
                     if (!visited.Contains(node))
                     {
-                        queue.Enqueue(node);
+                        stack.Push(node);
                         visited.Add(node);
-                        AddToLog(new List<int> { node }, $"Visited and enqueued node: {node}");
+                        AddToLog(new List<int> { node }, $"Visited and pushed node: {node}");
                     }
                     else
                     {
@@ -39,11 +40,11 @@
                     }
                 }
 
-                AddToLog(queue.ToList(), $"Queue now: [{string.Join(", ", queue)}]");
+                AddToLog(stack.ToList(), $"Stack now: [{string.Join(", ", stack)}]");
             }
-            AddToLog(result, $"Completed traversal: [{string.Join(", ", queue)}]");
+
+            AddToLog(result, $"Completed traversal: [{string.Join(", ", stack)}]");
             return result;
         }
     }
 }
-
