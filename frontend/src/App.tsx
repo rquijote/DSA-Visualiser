@@ -1,34 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+interface Log {
+    list: number[];
+    msg: string;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [input, setInput] = useState("");
+    const [logs, setLogs] = useState<Log[]>([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    const handleSort = async () => {
+        // Convert comma-separated string to number array
+        const numbers = input.split(",").map(n => parseInt(n.trim(), 10)).filter(n => !isNaN(n));
+
+        const response = await fetch("/api/sort/bubble", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(numbers)
+        });
+
+        if (response.ok) {
+            const data: Log[] = await response.json();
+            setLogs(data);
+            console.log(data);
+        } else {
+            console.error("Failed to fetch logs");
+        }
+    };
+
+    return (
+        <div>
+        <h1>Bubble Sort</h1>
+            <input
+                type="text"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                placeholder="Enter numbers comma-separated"
+            />
+            <button onClick={handleSort}>Sort</button>
+
+            <div>
+                {logs.map((log, idx) => (
+                    <div key={idx}>
+                        <div>List: [{log.list.join(", ")}]</div>
+                        <div>Message: {log.msg}</div>
+                        <hr />
+                    </div>
+                ))}
+            </div>
+        </div>
   )
 }
 

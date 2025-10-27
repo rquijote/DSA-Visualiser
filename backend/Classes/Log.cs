@@ -2,14 +2,15 @@
 
 namespace Backend.Classes
 {
-    public class Log(List<int> list, string msg)
+    public class Log
     {
-        public readonly List<int> _list = list;
-        public readonly string _msg = msg;
+        public List<int> List { get; set; }
+        public string Msg { get; set; }
 
-        public string GetMsg()
+        public Log(List<int> list, string msg)
         {
-            return _msg;
-    }
+            List = list;
+            Msg = msg;
+        }
     }
 }
