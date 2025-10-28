@@ -5,13 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
     plugins: [react()],
     server: {
-        proxy: {
-            // Remove in prod.
-            '/api': {
-                target: 'http://localhost:7295',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '')
-            }
-        }
-    }
+        // https://www.geeksforgeeks.org/reactjs/how-to-configure-proxy-in-vite/
+        proxy: { // Set up proxy to handle requests to different backends.
+            '/api': { // on /api it will proxy to the following: 
+                target: 'http://localhost:5297', // Our backend port.
+                changeOrigin: true, // Changes the Origin header to match target server.
+                rewrite: path => path.replace(/^\/api/, ''), // Modifies the request path before forwarding.
+            },
+        },
+    },
 })

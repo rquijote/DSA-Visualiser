@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/sort")]
     public class SortController : ControllerBase
     {
         [HttpPost("bubble")]
