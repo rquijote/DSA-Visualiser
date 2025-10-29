@@ -10,7 +10,6 @@ export default defineConfig({
             '/api': { // on /api it will proxy to the following: 
                 target: 'http://localhost:5297', // Our backend port.
                 changeOrigin: true, // Changes the Origin header to match target server.
-                rewrite: path => path.replace(/^\/api/, ''), // Modifies the request path before forwarding.
             },
         },
     },

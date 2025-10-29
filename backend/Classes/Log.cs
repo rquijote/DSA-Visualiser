@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Backend.Classes
+﻿namespace Backend.Classes
 {
     public class Log
     {
