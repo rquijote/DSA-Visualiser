@@ -1,0 +1,9 @@
+.sidebar-container {
+    border: 1px black solid;
+}
+
+.sidebar-column {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}

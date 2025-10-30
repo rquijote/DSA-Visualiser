@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+}
+
+.sorting-div {
+    display: flex;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sorting-numbox {
+    padding: 10px;
+    border-style: solid;
+    margin: 10px
+}
+
+.sorting-wrapper {
+    height: 500px;
+    width: 700px;
+    border: 1px solid greenyellow;
+    display: relative;
+}
