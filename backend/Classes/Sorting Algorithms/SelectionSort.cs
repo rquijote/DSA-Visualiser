@@ -7,11 +7,13 @@
             for (int i = 0; i < list.Count - 1; i++)
             {
                 int min = i;
-
+                AddToLog(list, $"Min number is set to value at {min} ({list[min]})", new List<int> { i });
                 for (int j = i + 1; j < list.Count; j++)
                 {
+                    AddToLog(list, $"Comparing min value {list[min]} to value {list[j]}.", new List<int> { i, j });
                     if (list[j] < list[min])
                     {
+                        AddToLog(list, $"Set new min to value at index {j} ({list[j]}).", new List<int> { j });
                         min = j;
                     }
                 }
@@ -22,7 +24,7 @@
                 }
                 else
                 {
-                    AddToLog(list, $"No swap needed for index {i} ({list[i]}). Current list: [{string.Join(", ", list)}]", new List<int> { i });
+                    AddToLog(list, $"No swap needed for index {i} ({list[i]}).", new List<int> { i });
                 }
             }
 
@@ -35,7 +37,7 @@
             int temp = list[i];
             list[i] = list[min];
             list[min] = temp;
-            AddToLog(list, $"Swapped index {i} ({list[i]}) with index {min} ({list[min]}). Current list: [{string.Join(", ", list)}]", new List<int> { i, min });
+            AddToLog(list, $"Swapped index {i} ({list[i]}) with index {min} ({list[min]}).", new List<int> { i, min });
         }
     }
 }
