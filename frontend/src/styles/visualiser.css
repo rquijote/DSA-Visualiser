@@ -24,3 +24,12 @@
     border: 1px solid black;
     display: relative;
 }
+
+.highlight {
+    background-color: lightgrey;
+}
+
+.log-tracker {
+    height: 500px;
+    overflow-y: auto;
+}
