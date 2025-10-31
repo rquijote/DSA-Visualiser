@@ -6,18 +6,18 @@
         {
             int index = -1;
             if (list == null) return index;
-            for (int i = 0; i < list.Count; i++) 
+            for (int i = 0; i < list.Count; i++)
             {
                 incrementIterations();
-                AddToLog(list, $"Checking value {list[i]} at index: {i}");
+                AddToLog(list, $"Checking value {list[i]} at index: {i}", new List<int> { i });
                 if (list[i] == number)
                 {
                     index = i;
-                    AddToLog(list, $"Found {number} at index: {i}");
+                    AddToLog(list, $"Found {number} at index: {i}", new List<int> { i });
                     return index;
                 }
             }
-            AddToLog(list, $"Value: {number} not found in the list.");
+            AddToLog(list, $"Value: {number} not found in the list.", new List<int>());
             return index;
         }
     }

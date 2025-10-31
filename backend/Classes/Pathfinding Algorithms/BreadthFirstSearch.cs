@@ -20,21 +20,21 @@
 
             if (!graph.ContainsKey(startNode))
             {
-                AddToLog(result, "No starting node found.");
+                AddToLog(result, "No starting node found.", new List<int>());
                 return result;
             }
 
             queue.Enqueue(startNode);
             visited.Add(startNode);
 
-            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}");
+            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}", visited.ToList());
 
             while (queue.Count > 0)
             {
                 int current = queue.Dequeue();
                 result.Add(current);
                 IncrementIterations();
-                AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]");
+                AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]", new List<int> { current });
 
                 if (current == targetNode)
                 {
@@ -47,22 +47,22 @@
                     {
                         queue.Enqueue(node);
                         visited.Add(node);
-                        AddToLog(new List<int> { node }, $"Visited and enqueued node: {node}");
+                        AddToLog(new List<int> { node }, $"Visited and enqueued node: {node}", new List<int> { node });
                     }
                     else
                     {
-                        AddToLog(new List<int> { node }, $"Skipped already visited node: {node}");
+                        AddToLog(new List<int> { node }, $"Skipped already visited node: {node}", new List<int> { node });
                     }
                 }
 
-                AddToLog(queue.ToList(), $"Queue now: [{string.Join(", ", queue)}]");
+                AddToLog(queue.ToList(), $"Queue now: [{string.Join(", ", queue)}]", queue.ToList());
             }
 
-            AddToLog(result, $"Completed traversal: [{string.Join(", ", queue)}]");
+            AddToLog(result, $"Completed traversal: [{string.Join(", ", queue)}]", new List<int>());
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))
             {
-                AddToLog(result, $"Target node {targetNode.Value} not found in graph.");
+                AddToLog(result, $"Target node {targetNode.Value} not found in graph.", new List<int>());
             }
 
             return result;

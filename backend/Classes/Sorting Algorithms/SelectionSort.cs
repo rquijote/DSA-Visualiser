@@ -22,11 +22,11 @@
                 }
                 else
                 {
-                    AddToLog(list, $"No swap needed for index {i} ({list[i]}). Current list: [{string.Join(", ", list)}]");
+                    AddToLog(list, $"No swap needed for index {i} ({list[i]}). Current list: [{string.Join(", ", list)}]", new List<int> { i });
                 }
             }
 
-            AddToLog(list, $"Sorting complete. Final list: [{string.Join(", ", list)}]");
+            AddToLog(list, $"Sorting complete. Final list: [{string.Join(", ", list)}]", new List<int>());
             return list;
         }
 
@@ -35,8 +35,7 @@
             int temp = list[i];
             list[i] = list[min];
             list[min] = temp;
-            AddToLog(list, $"Swapped index {i} ({list[i]}) with index {min} ({list[min]}). Current list: [{string.Join(", ", list)}]");
+            AddToLog(list, $"Swapped index {i} ({list[i]}) with index {min} ({list[min]}). Current list: [{string.Join(", ", list)}]", new List<int> { i, min });
         }
     }
 }
-

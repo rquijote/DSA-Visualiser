@@ -18,40 +18,48 @@ function BubbleSort() {
 
     if (response.ok) {
       const data: Log[] = await response.json();
-      setLogs(data);
-      console.log(data);
+      setLogs(data); // Possibly delete this
+      startVisualiser(data);
     } else {
       console.error("Failed to fetch logs");
     }
   };
 
+  function startVisualiser(data: Log[]) {
+    for (let i = 0; i < data.length; i++) {
+      setTimeout(() => {
+        // 
+      }, i * 1000);
+    }
+  }
+
   return (
     <div className="container">
       <Sidebar />
-        <div className="visualiser-container">
-          <h1>Bubble Sort</h1>
-          <TransformWrapper>
-            <TransformComponent>
-              <div className="sorting-wrapper">
-                <div className="sorting-div">
-                  {list.map((number) => {
-                    return <div className="sorting-numbox">{number}</div>;
-                  })}
-                </div>
+      <div className="visualiser-container">
+        <h1>Bubble Sort</h1>
+        <TransformWrapper>
+          <TransformComponent>
+            <div className="sorting-wrapper">
+              <div className="sorting-div">
+                {list.map((number) => {
+                  return <div className="sorting-numbox">{number}</div>;
+                })}
               </div>
-            </TransformComponent>
-          </TransformWrapper>
-          <button onClick={handleSort}>Sort</button>
-          <div>
-            {logs.map((log, idx) => (
-              <div key={idx}>
-                <div>List: [{log.list.join(", ")}]</div>
-                <div>Message: {log.msg}</div>
-                <hr />
-              </div>
-            ))}
-          </div>
+            </div>
+          </TransformComponent>
+        </TransformWrapper>
+        <button onClick={handleSort}>Sort</button>
+        <div>
+          {logs.map((log, idx) => (
+            <div key={idx}>
+              <div>List: [{log.list.join(", ")}]</div>
+              <div>Message: {log.msg}</div>
+              <hr />
+            </div>
+          ))}
         </div>
+      </div>
     </div>
   );
 }

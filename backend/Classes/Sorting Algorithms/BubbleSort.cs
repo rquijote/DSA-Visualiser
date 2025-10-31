@@ -6,11 +6,14 @@
         {
             for (int i = 0; i < list.Count - 1; i++)
             {
-                AddToLog(list, $"Starting pass {i + 1} over the list: [{string.Join(", ", list)}]");
+                AddToLog(list, $"Starting pass {i + 1} over the list: [{string.Join(", ", list)}]", new List<int>());
+
                 bool swappedThisPass = false;
 
                 for (int j = 1; j < list.Count - i; j++)
                 {
+                    AddToLog(list, $"Comparing index {j - 1} ({list[j - 1]}) and {j} ({list[j]})", new List<int> { j - 1, j });
+
                     if (list[j] < list[j - 1])
                     {
                         Swap(list, j, j - 1);
@@ -18,19 +21,19 @@
                     }
                     else
                     {
-                        AddToLog(list, $"No swap needed between index {j - 1} ({list[j - 1]}) and {j} ({list[j]})");
+                        AddToLog(list, $"No swap needed between index {j - 1} ({list[j - 1]}) and {j} ({list[j]})", new List<int> { j - 1, j });
                     }
                 }
 
                 if (!swappedThisPass)
                 {
-                    AddToLog(list, $"No swaps in pass {i + 1}, list is sorted.");
+                    AddToLog(list, $"No swaps in pass {i + 1}, list is sorted.", new List<int>());
                     break;
                 }
             }
 
             SetList(list);
-            AddToLog(list, $"Final sorted list: [{string.Join(", ", list)}]");
+            AddToLog(list, $"Final sorted list: [{string.Join(", ", list)}]", new List<int>());
             return list;
         }
 
@@ -39,8 +42,8 @@
             int temp = list[index1];
             list[index1] = list[index2];
             list[index2] = temp;
-            AddToLog(list, $"Swapped index {index1} ({list[index1]}) with index {index2} ({list[index2]}). Current list: [{string.Join(", ", list)}]");
+
+            AddToLog(list, $"Swapped index {index1} ({list[index1]}) with index {index2} ({list[index2]}). Current list: [{string.Join(", ", list)}]", new List<int> { index1, index2 });
         }
     }
 }
-

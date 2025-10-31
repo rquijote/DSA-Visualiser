@@ -22,14 +22,14 @@
 
             if (!graph.ContainsKey(startNode))
             {
-                AddToLog(result, "No starting node found.");
+                AddToLog(result, "No starting node found.", new List<int>());
                 return result;
             }
 
             stack.Push(startNode);
             visited.Add(startNode);
 
-            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}");
+            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}", visited.ToList());
 
             while (stack.Count > 0)
             {
@@ -37,7 +37,7 @@
                 result.Add(current);
                 IncrementIterations();
 
-                AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]");
+                AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]", new List<int> { current });
 
                 if (current == targetNode)
                 {
@@ -50,22 +50,22 @@
                     {
                         stack.Push(node);
                         visited.Add(node);
-                        AddToLog(new List<int> { node }, $"Visited and pushed node: {node}");
+                        AddToLog(new List<int> { node }, $"Visited and pushed node: {node}", new List<int> { node });
                     }
                     else
                     {
-                        AddToLog(new List<int> { node }, $"Skipped already visited node: {node}");
+                        AddToLog(new List<int> { node }, $"Skipped already visited node: {node}", new List<int> { node });
                     }
                 }
 
-                AddToLog(stack.ToList(), $"Stack now: [{string.Join(", ", stack)}]");
+                AddToLog(stack.ToList(), $"Stack now: [{string.Join(", ", stack)}]", stack.ToList());
             }
 
-            AddToLog(result, $"Completed traversal: [{string.Join(", ", stack)}]");
+            AddToLog(result, $"Completed traversal: [{string.Join(", ", stack)}]", new List<int>());
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))
             {
-                AddToLog(result, $"Target node {targetNode.Value} not found in graph.");
+                AddToLog(result, $"Target node {targetNode.Value} not found in graph.", new List<int>());
             }
 
             return result;

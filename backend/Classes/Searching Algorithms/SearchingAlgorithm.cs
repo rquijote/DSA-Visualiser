@@ -19,9 +19,9 @@
         {
             _iterations++;
         }
-        public void AddToLog(List<int> logList, string msg)
+        public void AddToLog(List<int> logList, string msg, List<int> highlight)
         {
-            Log logItem = new Log(new List<int>(logList), msg);
+            Log logItem = new Log(new List<int>(logList), msg, new List<int>(highlight));
             _log.Add(logItem);
         }
 
