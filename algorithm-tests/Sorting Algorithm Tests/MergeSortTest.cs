@@ -8,7 +8,7 @@ public class MergeSortTest
     MergeSort mergeSort = new MergeSort();
 
     [TestMethod]
-    public void Selection_Sort_Returns_Correct_Results()
+    public void Merge_Sort_Returns_Correct_Results()
     {
         List<int> input = new List<int> { 6, 3, 8, 9, 2 };
         List<int> expected = [2, 3, 6, 8, 9];

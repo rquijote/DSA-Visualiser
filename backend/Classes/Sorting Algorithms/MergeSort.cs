@@ -4,14 +4,15 @@
     {
         public override List<int> Sort(List<int> list)
         {
+            // Base case 
             if (list.Count <= 1) return list;
+            AddToLog(list, $"List to split [{string.Join(", ", list)}]", new List<int>());
+
             AddToLog(list, $"Splitting list [{string.Join(", ", list)}]", new List<int>());
 
             int mid = list.Count / 2;
             List<int> left = Sort(list.GetRange(0, mid));
             List<int> right = Sort(list.GetRange(mid, list.Count - mid));
-
-            AddToLog(list, $"Merging left [{string.Join(", ", left)}] and right [{string.Join(", ", right)}]", new List<int>());
 
             List<int> merged = new List<int>();
 
@@ -19,14 +20,25 @@
 
             while (i < left.Count && j < right.Count)
             {
-                AddToLog(merged, $"Comparing {left[i]} (left) and {right[j]} (right)", new List<int> { i, j });
+                if (merged.Count == 0)
+                {
+                    AddToLog([left[i], right[j]], $"Comparing {left[i]} (left) and {right[j]} (right)", new List<int> { });
+                } else
+                {
+                    AddToLog(merged, $"Comparing {left[i]} (left) and {right[j]} (right)", new List<int> { });
+                }
+                
                 if (left[i] <= right[j])
                 {
-                    merged.Add(left[i++]);
+                    merged.Add(left[i]);
+                    AddToLog(merged, $"Adding {left[i]} (left) to merged list", new List<int> { });
+                    i++;
                 }
                 else
                 {
-                    merged.Add(right[j++]);
+                    merged.Add(right[j]);
+                    AddToLog(merged, $"Adding {right[j]} (right) to merged list", new List<int> { });
+                    j++;
                 }
             }
 
@@ -40,7 +52,7 @@
                 merged.Add(right[j++]);
             }
 
-            AddToLog(list, $"Merged result: [{string.Join(", ", merged)}]", new List<int>());
+            AddToLog(merged, $"Merged result: [{string.Join(", ", merged)}]", new List<int>());
             return merged;
         }
     }

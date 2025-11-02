@@ -6,15 +6,12 @@ import Sidebar from "../components/Sidebar";
 
 function MergeSort() {
   const [logMsg, setLogMsg] = useState<string[]>();
-  const list = [1, 5, 8, 9, 2, 4, 11, 6];
-  const [currentList, setCurrentList] = useState<number[]>(list);
-  const [highlight, setHighlight] = useState<number[]>();
+  const [allLists, setAllLists] = useState<number[][]>([]);
 
   const handleSort = async () => {
     const response = await fetch("/api/sort/merge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(list),
     });
 
     if (response.ok) {
@@ -28,9 +25,10 @@ function MergeSort() {
   function startVisualiser(data: Log[]) {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
-        setCurrentList(data[i].list);
-        setHighlight(data[i].highlight);
+        console.log(data[i]);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
+        // Start from here onwards. 
+        // setAllLists((prevLists) => [...prevLists, data[i].list]);
       }, i * 1000);
     }
   }
@@ -42,20 +40,7 @@ function MergeSort() {
         <h1>Merge Sort</h1>
         <TransformWrapper>
           <TransformComponent>
-            <div className="sorting-wrapper">
-              <div className="sorting-div">
-                {currentList.map((number, idx) => (
-                  <div
-                    key={idx}
-                    className={`sorting-numbox ${
-                      highlight?.includes(idx) ? "highlight" : ""
-                    }`}
-                  >
-                    {number}
-                  </div>
-                ))}
-              </div>
-            </div>
+            // Print from here
           </TransformComponent>
         </TransformWrapper>
         <button onClick={handleSort}>Sort</button>
