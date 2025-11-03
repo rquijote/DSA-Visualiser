@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
 import Sidebar from "../components/Sidebar";
 
 function MergeSort() {
+  const list = [5, 2, 9, 2, 8, 1, 5, 14];
   const [logMsg, setLogMsg] = useState<string[]>();
   const [allLists, setAllLists] = useState<number[][]>([]);
+  const [highlight, setHighlight] = useState<number[]>();
+  const sortingRef = useRef<HTMLDivElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
 
   const handleSort = async () => {
     const response = await fetch("/api/sort/merge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(list),
     });
 
     if (response.ok) {
@@ -26,12 +31,24 @@ function MergeSort() {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
         console.log(data[i]);
+        setHighlight(data[i].highlight);
+        setAllLists((prev) => [...prev, data[i].list]);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
-        // Start from here onwards. 
-        // setAllLists((prevLists) => [...prevLists, data[i].list]);
-      }, i * 1000);
+      }, i * 2000);
     }
   }
+
+  useEffect(() => {
+    if (sortingRef.current) {
+      sortingRef.current.scrollTop = sortingRef.current.scrollHeight;
+    }
+  }, [allLists]);
+
+  useEffect(() => {
+    if (logRef.current) {
+      logRef.current.scrollTop = logRef.current.scrollHeight;
+    }
+  }, [logMsg]);
 
   return (
     <div className="container">
@@ -40,7 +57,27 @@ function MergeSort() {
         <h1>Merge Sort</h1>
         <TransformWrapper>
           <TransformComponent>
-            // Print from here
+            <div ref={sortingRef} className="sorting-wrapper-merge-sort">
+              {allLists.map((list, listIdx) => {
+                const isBottomRow = listIdx === allLists.length - 1;
+                return (
+                  <div className="sorting-div-merge-sort" key={listIdx}>
+                    {list.map((number, index) => (
+                      <div
+                        key={index}
+                        className={`sorting-numbox ${
+                          highlight?.includes(index) && isBottomRow
+                            ? "highlight"
+                            : ""
+                        }`}
+                      >
+                        {number}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
           </TransformComponent>
         </TransformWrapper>
         <button onClick={handleSort}>Sort</button>
