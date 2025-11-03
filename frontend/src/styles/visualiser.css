@@ -11,16 +11,6 @@
     transform: translate(-50%, -50%);
 }
 
-.sorting-div.merge-sort {
-    position: relative;
-    align-items: center;
-}
-
-.merge-sort-row {
-    display: grid;
-    justify-items: start;
-}
-
 .sorting-numbox {
     padding: 10px;
     border: 1px solid black;
@@ -33,11 +23,6 @@
     width: 700px;
     border: 1px solid black;
     display: relative;
-}
-
-.sorting-wrapper.merge-sort {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 .highlight {
