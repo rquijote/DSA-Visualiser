@@ -1,4 +1,6 @@
-﻿namespace Backend.Classes
+﻿using System.Collections.Generic;
+
+namespace Backend.Classes
 {
     public class SortingAlgorithm
     {
@@ -20,9 +22,9 @@
             _list = list;
         }
 
-        public void AddToLog(List<int> logList, string msg, List<int> highlight)
+        public void AddToLog(List<int> logList, string msg, Dictionary<string, object> extras = null)
         {
-            Log logItem = new Log(new List<int>(logList), msg, new List<int>(highlight));
+            Log logItem = new Log(new List<int>(logList), msg, extras);
             _log.Add(logItem);
         }
 

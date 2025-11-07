@@ -48,7 +48,7 @@ public class MergeSortTest
     [TestMethod]
     public void Merge_Sort_Returns_Log()
     {
-        List<int> input = new List<int> { 6, 3, 8, 9, 2 };
+        List<int> input = new List<int> { 6, 3, 8, 9, 2, 10, 2, 1, 4 };
         mergeSort.Sort(input);
         List<Log> logList = mergeSort.GetLog();
         Assert.IsNotNull(logList);

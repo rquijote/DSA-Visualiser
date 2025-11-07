@@ -2,17 +2,11 @@
 {
     public class DepthFirstSearch : PathfindingAlgorithm
     {
-        public override List<int> Traverse(Dictionary<int, List<int>> graph, int startNode)
-        {
-            List<int> result = DFS_Helper(graph, startNode);
-            return result;
-        }
+        public override List<int> Traverse(Dictionary<int, List<int>> graph, int startNode) =>
+            DFS_Helper(graph, startNode);
 
-        public override List<int> Search(Dictionary<int, List<int>> graph, int startNode, int target)
-        {
-            List<int> result = DFS_Helper(graph, startNode, target);
-            return result;
-        }
+        public override List<int> Search(Dictionary<int, List<int>> graph, int startNode, int target) =>
+            DFS_Helper(graph, startNode, target);
 
         private List<int> DFS_Helper(Dictionary<int, List<int>> graph, int startNode, int? targetNode = null)
         {
@@ -22,14 +16,16 @@
 
             if (!graph.ContainsKey(startNode))
             {
-                AddToLog(result, "No starting node found.", new List<int>());
+                AddToLog(result, "No starting node found.", new Dictionary<string, object>());
                 return result;
             }
 
             stack.Push(startNode);
             visited.Add(startNode);
 
-            AddToLog(visited.ToList(), $"Visited node initially: {string.Join(",", visited)}", visited.ToList());
+            AddToLog(visited.ToList(),
+                $"Visited node initially: {string.Join(",", visited)}",
+                new Dictionary<string, object> { { "highlight", visited.ToList() } });
 
             while (stack.Count > 0)
             {
@@ -37,12 +33,11 @@
                 result.Add(current);
                 IncrementIterations();
 
-                AddToLog(result, $"Result is currently: [{string.Join(", ", result)}]", new List<int> { current });
+                AddToLog(result,
+                    $"Result is currently: [{string.Join(", ", result)}]",
+                    new Dictionary<string, object> { { "highlight", new List<int> { current } } });
 
-                if (current == targetNode)
-                {
-                    return result;
-                }
+                if (current == targetNode) return result;
 
                 foreach (int node in graph[current])
                 {
@@ -50,22 +45,32 @@
                     {
                         stack.Push(node);
                         visited.Add(node);
-                        AddToLog(new List<int> { node }, $"Visited and pushed node: {node}", new List<int> { node });
+                        AddToLog(new List<int> { node },
+                            $"Visited and pushed node: {node}",
+                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
                     }
                     else
                     {
-                        AddToLog(new List<int> { node }, $"Skipped already visited node: {node}", new List<int> { node });
+                        AddToLog(new List<int> { node },
+                            $"Skipped already visited node: {node}",
+                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
                     }
                 }
 
-                AddToLog(stack.ToList(), $"Stack now: [{string.Join(", ", stack)}]", stack.ToList());
+                AddToLog(stack.ToList(),
+                    $"Stack now: [{string.Join(", ", stack)}]",
+                    new Dictionary<string, object> { { "highlight", stack.ToList() } });
             }
 
-            AddToLog(result, $"Completed traversal: [{string.Join(", ", stack)}]", new List<int>());
+            AddToLog(result,
+                $"Completed traversal: [{string.Join(", ", stack)}]",
+                new Dictionary<string, object>());
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))
             {
-                AddToLog(result, $"Target node {targetNode.Value} not found in graph.", new List<int>());
+                AddToLog(result,
+                    $"Target node {targetNode.Value} not found in graph.",
+                    new Dictionary<string, object>());
             }
 
             return result;

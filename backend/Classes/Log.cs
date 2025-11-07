@@ -4,13 +4,13 @@
     {
         public List<int> List { get; set; }
         public string Msg { get; set; }
-        public List<int> Highlight { get; set; }
+        public Dictionary<string, object> Extras { get; set; }
 
-        public Log(List<int> list, string msg, List<int> highlight)
+        public Log(List<int> list, string msg, Dictionary<string, object> extras)
         {
             List = list;
             Msg = msg;
-            Highlight = highlight;
+            Extras = extras ?? new Dictionary<string, object>();
         }
     }
 }

@@ -4,21 +4,29 @@
     {
         public override int Search(List<int> list, int number)
         {
-            int index = -1;
-            if (list == null) return index;
+            if (list == null) return -1;
+
             for (int i = 0; i < list.Count; i++)
             {
                 incrementIterations();
-                AddToLog(list, $"Checking value {list[i]} at index: {i}", new List<int> { i });
+
+                AddToLog(list,
+                    $"Checking value {list[i]} at index: {i}",
+                    new Dictionary<string, object> { { "highlight", new List<int> { i } } });
+
                 if (list[i] == number)
                 {
-                    index = i;
-                    AddToLog(list, $"Found {number} at index: {i}", new List<int> { i });
-                    return index;
+                    AddToLog(list,
+                        $"Found {number} at index: {i}",
+                        new Dictionary<string, object> { { "highlight", new List<int> { i } } });
+                    return i;
                 }
             }
-            AddToLog(list, $"Value: {number} not found in the list.", new List<int>());
-            return index;
+
+            AddToLog(list,
+                $"Value: {number} not found in the list.",
+                new Dictionary<string, object>());
+            return -1;
         }
     }
 }

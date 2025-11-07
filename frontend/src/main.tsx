@@ -6,6 +6,7 @@ import BubbleSort from './pages/BubbleSort'
 import InsertionSort from './pages/InsertionSort';
 import SelectionSort from './pages/SelectionSort';
 import MergeSort from './pages/MergeSort';
+import QuickSort from './pages/QuickSort';
 
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/insertion-sort" element={<InsertionSort />} />
                 <Route path="/selection-sort" element={<SelectionSort />} />
                 <Route path="/merge-sort" element={<MergeSort />} />
+                <Route path="/quick-sort" element={<QuickSort />} />
             </Routes>
         </StrictMode>
     </BrowserRouter>
