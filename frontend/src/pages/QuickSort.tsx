@@ -31,7 +31,7 @@ function QuickSort() {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
         console.log(data[i]);
-        setHighlight(data[i].highlight);
+        setHighlight(data[i].extras?.highlight);
         setAllLists((prev) => [...prev, data[i].list]);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
       }, i * 2000);

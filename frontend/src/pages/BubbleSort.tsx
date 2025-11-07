@@ -29,9 +29,9 @@ function BubbleSort() {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
         setCurrentList(data[i].list);
-        setHighlight(data[i].highlight || []);
+        setHighlight(data[i].extras?.highlight || []);
         setLogMsg(prev => [...(prev || []), data[i].msg]);
-      }, i * 500);
+      }, i * 1000);
     }
   }
 
