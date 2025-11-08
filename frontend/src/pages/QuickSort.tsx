@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 function QuickSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
   const [logMsg, setLogMsg] = useState<string[]>();
-  const [allLists, setAllLists] = useState<number[][]>([]);
+  const [allLogs, setAllLogs] = useState<Log[]>([]);
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -27,14 +27,30 @@ function QuickSort() {
     }
   };
 
+  function processLog(newLog: Log) {
+    setAllLogs((prev) => {
+      const newDepth = newLog.extras?.depth ?? 0;
+
+      // Updates logs so all are smaller than the current log. 
+      // Equal is replaced, anything larger is removed to avoid forgotten 
+      // high log depths.
+      const updatedLogs = prev.filter((log) => {
+        const logDepth = log.extras?.depth ?? 0;
+        return logDepth < newDepth;
+      });
+
+      return [...updatedLogs, newLog];
+    });
+  }
+
   function startVisualiser(data: Log[]) {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
         console.log(data[i]);
+        processLog(data[i]);
         setHighlight(data[i].extras?.highlight);
-        setAllLists((prev) => [...prev, data[i].list]);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
-      }, i * 2000);
+      }, i * 1500);
     }
   }
 
@@ -42,7 +58,7 @@ function QuickSort() {
     if (sortingRef.current) {
       sortingRef.current.scrollTop = sortingRef.current.scrollHeight;
     }
-  }, [allLists]);
+  }, [allLogs]);
 
   useEffect(() => {
     if (logRef.current) {
@@ -58,11 +74,11 @@ function QuickSort() {
         <TransformWrapper>
           <TransformComponent>
             <div ref={sortingRef} className="sorting-wrapper-merge-sort">
-              {allLists.map((list, listIdx) => {
-                const isBottomRow = listIdx === allLists.length - 1;
+              {allLogs.map((log, logIdx) => {
+                const isBottomRow = logIdx === allLogs.length - 1;
                 return (
-                  <div className="sorting-div-merge-sort" key={listIdx}>
-                    {list.map((number, index) => (
+                  <div className="sorting-div-merge-sort" key={logIdx}>
+                    {log.list.map((number, index) => (
                       <div
                         key={index}
                         className={`sorting-numbox ${

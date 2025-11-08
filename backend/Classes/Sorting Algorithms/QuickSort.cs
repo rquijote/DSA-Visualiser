@@ -55,7 +55,7 @@
                     list[j] = temp;
 
                     AddToLog(list,
-                        $"Swapped {list[i]} (index {i}) with {list[j]} (index {j}). Current segment: [{string.Join(", ", list.GetRange(start, end - start + 1))}]",
+                        $"Swapped value: {list[i]} (index {i}) with value: {list[j]} (index {j}). Current segment: [{string.Join(", ", list.GetRange(start, end - start + 1))}]",
                         new Dictionary<string, object> { { "highlight", new List<int> { i, j } } });
                 }
             }

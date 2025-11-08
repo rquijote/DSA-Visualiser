@@ -73,7 +73,7 @@
                 if (left[i] <= right[j])
                 {
                     var leftoverMessage = (i + 1 < left.Count)
-                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}"
+                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                         : "no more leftovers in right";
 
                     AddToLog(
@@ -90,7 +90,7 @@
                 else
                 {
                     var leftoverMessage = (j + 1 < right.Count)
-                        ? $"leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
+                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                         : "no more leftovers in right";
 
                     AddToLog(
@@ -106,10 +106,11 @@
                 }
             }
 
+            // Add leftovers from left and right
             while (i < left.Count)
             {
                 string leftoverMessage = (i + 1 < left.Count)
-                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}"
+                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                     : "no more leftovers in left";
                 merged.Add(left[i]);
                 AddToLog(
@@ -124,11 +125,10 @@
                 i++;
             }
 
-            // Add remaining elements from right
             while (j < right.Count)
             {
-                string leftoverMessage = (j + 1 < right.Count)
-                    ? $"leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
+                string leftoverMessage = (j + 1 < right.Count && left.Count - (i + 1) > 0)
+                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                     : "no more leftovers in right";
 
                 merged.Add(right[j]);
