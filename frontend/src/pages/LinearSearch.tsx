@@ -12,7 +12,7 @@ function LinearSearch() {
 
   const searchRequest: SearchRequest = {list: list, target: 17};
 
-  const handleSort = async () => {
+  const handleSearch = async () => {
     const response = await fetch("/api/search/linear", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -61,7 +61,7 @@ function LinearSearch() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <button onClick={handleSort}>Sort</button>
+        <button onClick={handleSearch}>Search</button>
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>

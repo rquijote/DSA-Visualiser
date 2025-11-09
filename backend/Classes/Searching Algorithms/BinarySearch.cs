@@ -18,7 +18,7 @@
                 if (list[mid] == number)
                 {
                     AddToLog(list,
-                        $"Found value: {number} at index: {mid}",
+                        $"Found value: {number} at index: {mid}. Took {GetIterations()} iterations.",
                         new Dictionary<string, object> { { "highlight", new List<int> { mid } } });
                     return mid;
                 }
