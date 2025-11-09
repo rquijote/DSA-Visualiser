@@ -7,6 +7,8 @@ import InsertionSort from './pages/InsertionSort';
 import SelectionSort from './pages/SelectionSort';
 import MergeSort from './pages/MergeSort';
 import QuickSort from './pages/QuickSort';
+import LinearSearch from './pages/LinearSearch';
+import BinarySearch from './pages/BinarySearch';
 
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
@@ -18,6 +20,8 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/selection-sort" element={<SelectionSort />} />
                 <Route path="/merge-sort" element={<MergeSort />} />
                 <Route path="/quick-sort" element={<QuickSort />} />
+                <Route path="/linear-search" element={<LinearSearch />} />
+                <Route path="/binary-search" element={<BinarySearch />} />
             </Routes>
         </StrictMode>
     </BrowserRouter>

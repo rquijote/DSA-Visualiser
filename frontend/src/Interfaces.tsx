@@ -6,3 +6,13 @@
         depth?: number;
     }
 }
+
+export interface SearchRequest {
+    list: number[];
+    target: number;
+}
+
+/* 
+ public int[] Numbers { get; set; }
+        public int Target { get; set; }
+*/

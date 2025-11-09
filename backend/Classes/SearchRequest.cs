@@ -2,7 +2,7 @@
 {
     public class SearchRequest
     {
-        public int[] Numbers { get; set; }
+        public int[] List { get; set; }
         public int Target { get; set; }
     }
 }
