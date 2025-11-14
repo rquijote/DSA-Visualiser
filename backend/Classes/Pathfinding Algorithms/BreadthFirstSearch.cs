@@ -21,54 +21,62 @@
             }
 
             queue.Enqueue(startNode);
-            visited.Add(startNode);
-
-            AddToLog(visited.ToList(),
-                $"Visited node initially: {string.Join(",", visited)}",
-                new Dictionary<string, object> { { "highlight", visited.ToList() } });
 
             while (queue.Count > 0)
             {
                 int current = queue.Dequeue();
+                visited.Add(current);
                 result.Add(current);
-                IncrementIterations();
 
-                AddToLog(result,
-                    $"Result is currently: [{string.Join(", ", result)}]",
-                    new Dictionary<string, object> { { "highlight", new List<int> { current } } });
+                AddToLog(
+                    result,
+                    $"Adding {current} to result: [{string.Join(", ", result)}]",
+                    new Dictionary<string, object> {
+                { "visitedHighlight", visited.ToList() },
+                { "toVisitHighlight", queue.ToList() }
+                    });
 
-                if (current == targetNode) return result;
-
-                foreach (int node in graph[current])
+                if (current == targetNode) 
                 {
-                    if (!visited.Contains(node))
-                    {
-                        queue.Enqueue(node);
-                        visited.Add(node);
-                        AddToLog(new List<int> { node },
-                            $"Visited and enqueued node: {node}",
-                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
-                    }
-                    else
-                    {
-                        AddToLog(new List<int> { node },
-                            $"Skipped already visited node: {node}",
-                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
-                    }
+                    AddToLog(
+                            result,
+                            $"Target node {targetNode} found. Ending search.",
+                            new Dictionary<string, object> {
+                        { "visitedHighlight", visited.ToList() },
+                        { "toVisitHighlight", queue.ToList() }
+                            });
+                    return result; 
                 }
 
-                AddToLog(queue.ToList(),
-                    $"Queue now: [{string.Join(", ", queue)}]",
-                    new Dictionary<string, object> { { "highlight", queue.ToList() } });
+                foreach (int neighbor in graph[current])
+                {
+                    if (!visited.Contains(neighbor) && !queue.Contains(neighbor))
+                    {
+                        queue.Enqueue(neighbor);
+
+                        AddToLog(
+                            result,
+                            $"Node {neighbor} added to queue (to visit next): [{string.Join(", ", queue)}]",
+                            new Dictionary<string, object> {
+                        { "visitedHighlight", visited.ToList() },
+                        { "toVisitHighlight", queue.ToList() }
+                            });
+                    }
+                }
             }
 
-            AddToLog(result,
-                $"Completed traversal: [{string.Join(", ", queue)}]",
-                new Dictionary<string, object>());
+            AddToLog(
+                result,
+                $"Completed traversal: [{string.Join(", ", result)}]",
+                new Dictionary<string, object> {
+                { "visitedHighlight", visited.ToList() },
+                { "toVisitHighlight", new List<int>() } 
+                });
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))
             {
-                AddToLog(result,
+                AddToLog(
+                    result,
                     $"Target node {targetNode.Value} not found in graph.",
                     new Dictionary<string, object>());
             }

@@ -17,4 +17,5 @@ export interface SearchRequest {
 export interface PathfindingRequest {
     graph: Record<number, number[]>;
     startNode: number;
+    targetNode?: number;
 }

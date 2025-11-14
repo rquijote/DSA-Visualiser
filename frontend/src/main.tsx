@@ -10,6 +10,7 @@ import QuickSort from './pages/QuickSort';
 import LinearSearch from './pages/LinearSearch';
 import BinarySearch from './pages/BinarySearch';
 import DepthFirstSearch from './pages/DepthFirstSearch';
+import BreadthFirstSearch from "./pages/BreadthFirstSearch";
 
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
@@ -23,7 +24,8 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/quick-sort" element={<QuickSort />} />
                 <Route path="/linear-search" element={<LinearSearch />} />
                 <Route path="/binary-search" element={<BinarySearch />} />
-                <Route path='/dfs' element={<DepthFirstSearch />} />
+                <Route path="/dfs" element={<DepthFirstSearch />} />
+                <Route path="/bfs" element={<BreadthFirstSearch />} />
             </Routes>
         </StrictMode>
     </BrowserRouter>

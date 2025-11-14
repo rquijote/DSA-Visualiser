@@ -33,11 +33,21 @@
                  $"Adding {current} to result: [{string.Join(", ", result)}]",
                 new Dictionary<string, object> {
                     { "visitedHighlight", visited.ToList() },       
-                    { "toVisitHighlight", stack.Reverse().ToList() } 
+                    { "toVisitHighlight", stack.ToList() } 
                 });
 
 
-                if (current == targetNode) return result;
+                if (current == targetNode)
+                {
+                    AddToLog(
+                            result,
+                            $"Target node {targetNode} found. Ending search.",
+                            new Dictionary<string, object> {
+                        { "visitedHighlight", visited.ToList() },
+                        { "toVisitHighlight", stack.ToList() }
+                            });
+                    return result;
+                }
 
                 foreach (int neighbor in graph[current])
                 {
