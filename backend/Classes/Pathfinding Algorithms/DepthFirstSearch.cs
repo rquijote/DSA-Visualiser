@@ -10,9 +10,9 @@
 
         private List<int> DFS_Helper(Dictionary<int, List<int>> graph, int startNode, int? targetNode = null)
         {
-            HashSet<int> visited = new HashSet<int>();
-            Stack<int> stack = new Stack<int>();
-            List<int> result = new List<int>();
+            HashSet<int> visited = new HashSet<int>(); // All visited nodes
+            Stack<int> stack = new Stack<int>(); // To be visited nodes
+            List<int> result = new List<int>(); // To return list
 
             if (!graph.ContainsKey(startNode))
             {
@@ -25,7 +25,7 @@
 
             AddToLog(visited.ToList(),
                 $"Visited node initially: {string.Join(",", visited)}",
-                new Dictionary<string, object> { { "highlight", visited.ToList() } });
+                new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
 
             while (stack.Count > 0)
             {
@@ -35,7 +35,7 @@
 
                 AddToLog(result,
                     $"Result is currently: [{string.Join(", ", result)}]",
-                    new Dictionary<string, object> { { "highlight", new List<int> { current } } });
+                    new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
 
                 if (current == targetNode) return result;
 
@@ -47,24 +47,24 @@
                         visited.Add(node);
                         AddToLog(new List<int> { node },
                             $"Visited and pushed node: {node}",
-                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
+                            new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
                     }
                     else
                     {
                         AddToLog(new List<int> { node },
                             $"Skipped already visited node: {node}",
-                            new Dictionary<string, object> { { "highlight", new List<int> { node } } });
+                            new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
                     }
                 }
 
                 AddToLog(stack.ToList(),
                     $"Stack now: [{string.Join(", ", stack)}]",
-                    new Dictionary<string, object> { { "highlight", stack.ToList() } });
+                    new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
             }
 
             AddToLog(result,
-                $"Completed traversal: [{string.Join(", ", stack)}]",
-                new Dictionary<string, object>());
+                $"Completed traversal: [{string.Join(", ", result)}]",
+                new Dictionary<string, object> { { "visitedHighlight", visited.ToList() }, { "stackHighlight", stack.ToList() } });
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))
             {

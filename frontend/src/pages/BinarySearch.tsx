@@ -12,7 +12,7 @@ function BinarySearch() {
 
   const searchRequest: SearchRequest = {list: list, target: 17};
 
-  const handleSort = async () => {
+  const handleSearch = async () => {
     const response = await fetch("/api/search/binary", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -60,7 +60,7 @@ function BinarySearch() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <button onClick={handleSort}>Sort</button>
+        <button onClick={handleSearch}>Search</button>
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>

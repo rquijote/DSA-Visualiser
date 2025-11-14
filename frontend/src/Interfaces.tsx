@@ -12,7 +12,7 @@ export interface SearchRequest {
     target: number;
 }
 
-/* 
- public int[] Numbers { get; set; }
-        public int Target { get; set; }
-*/
+export interface PathfindingRequest {
+    graph: Record<number, number[]>;
+    startNode: number;
+}
