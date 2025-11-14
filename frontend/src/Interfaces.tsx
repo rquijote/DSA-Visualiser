@@ -4,6 +4,8 @@
     extras?: {
         highlight?: number[];
         depth?: number;
+        toVisitHighlight?: number[];
+        visitedHighlight?: number[];
     }
 }
 

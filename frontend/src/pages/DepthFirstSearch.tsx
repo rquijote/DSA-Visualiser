@@ -6,9 +6,10 @@ import Sidebar from "../components/Sidebar";
 
 function DepthFirstGraph() {
   const [logMsg, setLogMsg] = useState<string[]>();
-  const list = [2, 5, 8, 11, 13, 15, 17, 20, 22, 23];
-  const [currentList, setCurrentList] = useState<number[]>(list);
-  const [highlight, setHighlight] = useState<number[]>();
+  const [visited, setVisited] = useState<number[]>();
+  const [toVisit, setToVisit] = useState<number[]>();
+
+  console.log(toVisit);
 
   const graph: Record<number, number[]> = {
     "1": [2, 7],
@@ -37,10 +38,11 @@ function DepthFirstGraph() {
   const pathfindingRequest: PathfindingRequest = {
     graph: graph,
     startNode: 1,
+    targetNode: 9
   };
 
   const handleSearch = async () => {
-    const response = await fetch("/api/search/binary", {
+    const response = await fetch("/api/pathfinding/dfs-search", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(pathfindingRequest),
@@ -75,8 +77,8 @@ function DepthFirstGraph() {
     for (let i = 0; i < data.length; i++) {
       setTimeout(() => {
         console.log(data[i]);
-        setCurrentList(data[i].list);
-        setHighlight(data[i].extras?.highlight || []);
+        setVisited(data[i].extras?.visitedHighlight || [])
+        setToVisit(data[i].extras?.toVisitHighlight || [])
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
       }, i * 1000);
     }
@@ -112,9 +114,22 @@ function DepthFirstGraph() {
                 {/* Circles and Text */}
                 {Object.entries(positions).map(([node, positions]) => (
                   <g key={node}>
-                    <circle cx={positions.x} cy={positions.y} r={40} stroke={"black"} fill="white" strokeWidth={2}/>
-                    <text x={positions.x} y={positions.y} textAnchor="middle" dominantBaseline="middle" fontSize={22}>{node}</text>
+                    <circle cx={positions.x} cy={positions.y} r={40} stroke="black" fill={visited?.includes(Number(node)) ? "black" : toVisit?.includes(Number(node)) ? "lightgrey" : "white"}  strokeWidth={2}/>
+                    <text x={positions.x} y={positions.y} textAnchor="middle" dominantBaseline="middle" fill={visited?.includes(Number(node)) ? "white" : "black"} fontSize={22}>{node}</text>
                   </g>
+                  /* 
+                  create visitedHighlight state
+                  create toVisitHighlight state
+                  If node == visitedHighlight
+                  className={`sorting-numbox ${
+                      highlight?.includes(idx) ? "highlight" : ""
+                    }`}
+
+                    {`${visited?.includes(Number(node))} ? "black" : "white"`}
+                  make fill black and stroke white
+                  else if node == toVisitHighlight state
+                  make fill light grey, keep stroke black :)
+                  */
                 ))}
               </svg>
             </div>
