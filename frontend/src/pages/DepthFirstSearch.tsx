@@ -8,8 +8,7 @@ function DepthFirstGraph() {
   const [logMsg, setLogMsg] = useState<string[]>();
   const [visited, setVisited] = useState<number[]>();
   const [toVisit, setToVisit] = useState<number[]>();
-
-  console.log(toVisit);
+  const [searchNode, setSearchNode] = useState<number>(1);
 
   const graph: Record<number, number[]> = {
     "1": [2, 7],
@@ -35,10 +34,15 @@ function DepthFirstGraph() {
     9: { x: 440, y: 400 },
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    setSearchNode(value);
+  }
+
   const pathfindingRequest: PathfindingRequest = {
     graph: graph,
     startNode: 1,
-    targetNode: 9
+    targetNode: searchNode
   };
 
   const handleSearch = async () => {
@@ -117,24 +121,12 @@ function DepthFirstGraph() {
                     <circle cx={positions.x} cy={positions.y} r={40} stroke="black" fill={visited?.includes(Number(node)) ? "black" : toVisit?.includes(Number(node)) ? "lightgrey" : "white"}  strokeWidth={2}/>
                     <text x={positions.x} y={positions.y} textAnchor="middle" dominantBaseline="middle" fill={visited?.includes(Number(node)) ? "white" : "black"} fontSize={22}>{node}</text>
                   </g>
-                  /* 
-                  create visitedHighlight state
-                  create toVisitHighlight state
-                  If node == visitedHighlight
-                  className={`sorting-numbox ${
-                      highlight?.includes(idx) ? "highlight" : ""
-                    }`}
-
-                    {`${visited?.includes(Number(node))} ? "black" : "white"`}
-                  make fill black and stroke white
-                  else if node == toVisitHighlight state
-                  make fill light grey, keep stroke black :)
-                  */
                 ))}
               </svg>
             </div>
           </TransformComponent>
         </TransformWrapper>
+        <input type="number" onChange={handleSearchChange} value={searchNode}></input>
         <button onClick={handleSearch}>Search</button>
         <button onClick={handleTraverse}>Traverse</button>
         <div className="log-tracker">
