@@ -1,0 +1,10 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid lightgrey;
+}
+
+.backBtn {
+    width: 30px;
+    height: 30px;
+}
