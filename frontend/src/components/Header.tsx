@@ -1,5 +1,5 @@
 import "../styles/header.css";
-import { useNavigate } from "react-router";
+import { useNavigate, NavLink } from "react-router";
 import Dropdown from "./Dropdown";
 import DropdownItem from "./DropdownItem";
 
@@ -38,7 +38,7 @@ function Header() {
 
   return (
     <header className="header">
-      <p>Header</p>
+      <NavLink to="/" className="header-text">Home</NavLink>
       <Dropdown
         buttonText="Sorting Algorithms"
         content={

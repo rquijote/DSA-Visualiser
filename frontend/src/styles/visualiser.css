@@ -10,8 +10,14 @@ body {
 }
 
 .content-container {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 4rem auto;
+    gap: 0.5rem;
+}
+
+.content-container .content-title {
+    grid-column: 2;
 }
 
 .sorting-div {
@@ -64,4 +70,8 @@ body {
   display: flex;       
   text-align: center;
   align-items: center;                   
+}
+
+.visualiser-container {
+    grid-row: 2;
 }
