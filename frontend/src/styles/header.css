@@ -1,20 +1,10 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid lightgrey;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 2%;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.header * {
-    margin: 0px;
-}
-
-.backBtn {
-    width: 37px;
-    height: 37px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid lightgrey;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }

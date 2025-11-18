@@ -31,41 +31,43 @@ function BubbleSort() {
       setTimeout(() => {
         setCurrentList(data[i].list);
         setHighlight(data[i].extras?.highlight || []);
-        setLogMsg(prev => [...(prev || []), data[i].msg]);
+        setLogMsg((prev) => [...(prev || []), data[i].msg]);
       }, i * 1000);
     }
   }
 
   return (
-    <div className="container">
-      <Header title={"Sorting Algorithm"}/>
-      <div className="content-container">
-        <Sidebar />
-        <div className="visualiser-container">
-          <h1>Bubble Sort</h1>
-          <TransformWrapper>
-            <TransformComponent>
-              <div className="sorting-wrapper">
-                <div className="sorting-div">
-                  {currentList.map((number, idx) => (
-                    <div
-                      key={idx}
-                      className={`sorting-numbox ${
-                        highlight?.includes(idx) ? "highlight" : ""
-                      }`}
-                    >
-                      {number}
-                    </div>
-                  ))}
+    <div>
+      <Header />
+      <div className="container">
+        <div className="content-container">
+          <Sidebar />
+          <div className="visualiser-container">
+            <h1>Bubble Sort</h1>
+            <TransformWrapper>
+              <TransformComponent>
+                <div className="sorting-wrapper">
+                  <div className="sorting-div">
+                    {currentList.map((number, idx) => (
+                      <div
+                        key={idx}
+                        className={`sorting-numbox ${
+                          highlight?.includes(idx) ? "highlight" : ""
+                        }`}
+                      >
+                        {number}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </TransformComponent>
-          </TransformWrapper>
-          <button onClick={handleSort}>Sort</button>
-          <div className="log-tracker">
-            {logMsg?.map((msg, idx) => (
-              <p key={idx}>{msg}</p>
-            ))}
+              </TransformComponent>
+            </TransformWrapper>
+            <button onClick={handleSort}>Sort</button>
+            <div className="log-tracker">
+              {logMsg?.map((msg, idx) => (
+                <p key={idx}>{msg}</p>
+              ))}
+            </div>
           </div>
         </div>
       </div>

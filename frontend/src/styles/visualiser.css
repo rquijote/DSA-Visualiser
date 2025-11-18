@@ -5,6 +5,8 @@ body {
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    /* This needs to center the content creator*/
 }
 
 .content-container {
