@@ -14,11 +14,11 @@ function Header() {
     "Quick",
   ];
   const searchingAlgorithms = ["Linear", "Binary"];
-  const pathfindingAlgorithms = ["dfs", "bfs"];
+  const pathfindingAlgorithms = ["Depth First Search", "Breadth First Search"];
 
   function navigate(algorithm: string, type: "sort" | "search" | "pathfind") {
     const lowercaseAlgorithm = algorithm.toLowerCase();
-    
+
     switch (type) {
       case "sort":
         navigateRouter(`/${lowercaseAlgorithm}-sort`);
@@ -27,7 +27,11 @@ function Header() {
         navigateRouter(`/${lowercaseAlgorithm}-search`);
         break;
       case "pathfind":
-        navigateRouter(`/${lowercaseAlgorithm}-pathfind`);
+        if (lowercaseAlgorithm == "depth first search") {
+          navigateRouter("/dfs");
+        } else {
+          navigateRouter("/bfs");
+        }
         break;
     }
   }
@@ -52,7 +56,7 @@ function Header() {
         buttonText="Searching Algorithms"
         content={
           <>
-            {sortingAlgorithms.map((algorithm) => (
+            {searchingAlgorithms.map((algorithm) => (
               <DropdownItem
                 key={algorithm}
                 onClick={() => navigate(algorithm, "search")}
@@ -65,11 +69,11 @@ function Header() {
         buttonText="Pathfinding Algorithms"
         content={
           <>
-            {sortingAlgorithms.map((algorithm) => (
+            {pathfindingAlgorithms.map((algorithm) => (
               <DropdownItem
                 key={algorithm}
                 onClick={() => navigate(algorithm, "pathfind")}
-              >{`${algorithm} Sort`}</DropdownItem>
+              >{`${algorithm}`}</DropdownItem>
             ))}
           </>
         }
