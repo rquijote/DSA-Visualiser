@@ -1,25 +1,27 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { Log, PathfindingRequest } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
 import ControlPanel from "../components/ControlPanel";
+import Logtracker from "../components/LogTracker";
 
 function BreadthFirstGraph() {
-  const [logMsg, setLogMsg] = useState<string[]>();
+  const [logMsg, setLogMsg] = useState<string[]>([]);
   const [visited, setVisited] = useState<number[]>();
   const [toVisit, setToVisit] = useState<number[]>();
   const [searchNode, setSearchNode] = useState<number>(1);
+  const timeoutsRef = useRef<number[]>([]);
 
   const graph: Record<number, number[]> = {
-    "1": [2, 7],
-    "2": [3, 4, 5],
-    "3": [],
-    "4": [],
-    "5": [6],
-    "6": [],
-    "7": [8],
-    "8": [9],
-    "9": [],
+    1: [2, 7],
+    2: [3, 4, 5],
+    3: [],
+    4: [],
+    5: [6],
+    6: [],
+    7: [8],
+    8: [9],
+    9: [],
   };
 
   const positions: Record<number, { x: number; y: number }> = {
@@ -35,9 +37,9 @@ function BreadthFirstGraph() {
   };
 
   const pathfindingRequest: PathfindingRequest = {
-    graph: graph,
+    graph,
     startNode: 1,
-    targetNode: searchNode
+    targetNode: searchNode,
   };
 
   const handleSearch = async () => {
@@ -56,7 +58,6 @@ function BreadthFirstGraph() {
   };
 
   const handleTraverse = async () => {
-    console.log(pathfindingRequest);
     const response = await fetch("/api/pathfinding/bfs-traverse", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -68,19 +69,25 @@ function BreadthFirstGraph() {
       startVisualiser(data);
     } else {
       console.error("Failed to fetch logs");
-      console.error(response);
     }
   };
 
   function startVisualiser(data: Log[]) {
-    for (let i = 0; i < data.length; i++) {
-      setTimeout(() => {
-        console.log(data[i]);
-        setVisited(data[i].extras?.visitedHighlight || [])
-        setToVisit(data[i].extras?.toVisitHighlight || [])
-        setLogMsg((prev) => [...(prev || []), data[i].msg]);
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+    setVisited([]);
+    setToVisit([]);
+    setLogMsg([]);
+
+    data.forEach((log, i) => {
+      const timeout = setTimeout(() => {
+        setVisited(log.extras?.visitedHighlight || []);
+        setToVisit(log.extras?.toVisitHighlight || []);
+        setLogMsg((prev) => [...prev, log.msg]);
       }, i * 1000);
-    }
+
+      timeoutsRef.current.push(timeout);
+    });
   }
 
   return (
@@ -91,7 +98,6 @@ function BreadthFirstGraph() {
           <TransformComponent>
             <div className="sorting-wrapper">
               <svg width="700" height="500">
-                {/* Lines */}
                 {Object.entries(graph).map(([from, toList]) =>
                   toList.map((to) => {
                     const fromPos = positions[Number(from)];
@@ -109,23 +115,45 @@ function BreadthFirstGraph() {
                     );
                   })
                 )}
-                {/* Circles and Text */}
-                {Object.entries(positions).map(([node, positions]) => (
+                {Object.entries(positions).map(([node, pos]) => (
                   <g key={node}>
-                    <circle cx={positions.x} cy={positions.y} r={40} stroke="black" fill={visited?.includes(Number(node)) ? "black" : toVisit?.includes(Number(node)) ? "lightgrey" : "white"}  strokeWidth={2}/>
-                    <text x={positions.x} y={positions.y} textAnchor="middle" dominantBaseline="middle" fill={visited?.includes(Number(node)) ? "white" : "black"} fontSize={22}>{node}</text>
+                    <circle
+                      cx={pos.x}
+                      cy={pos.y}
+                      r={40}
+                      stroke="black"
+                      fill={
+                        visited?.includes(Number(node))
+                          ? "black"
+                          : toVisit?.includes(Number(node))
+                          ? "lightgrey"
+                          : "white"
+                      }
+                      strokeWidth={2}
+                    />
+                    <text
+                      x={pos.x}
+                      y={pos.y}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill={visited?.includes(Number(node)) ? "white" : "black"}
+                      fontSize={22}
+                    >
+                      {node}
+                    </text>
                   </g>
                 ))}
               </svg>
             </div>
           </TransformComponent>
         </TransformWrapper>
-         <ControlPanel algorithmType="pathfind" setTargetNum={setSearchNode} handleSearch={handleSearch} handleTraverse={handleTraverse}/>
-        <div className="log-tracker">
-          {logMsg?.map((msg, idx) => (
-            <p key={idx}>{msg}</p>
-          ))}
-        </div>
+        <ControlPanel
+          algorithmType="pathfind"
+          setTargetNum={setSearchNode}
+          handleSearch={handleSearch}
+          handleTraverse={handleTraverse}
+        />
+        <Logtracker logMsg={logMsg} />
       </div>
     </div>
   );

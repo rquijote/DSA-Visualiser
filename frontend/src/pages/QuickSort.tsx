@@ -3,14 +3,17 @@ import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
 import ControlPanel from "../components/ControlPanel";
+import Logtracker from "../components/LogTracker";
 
 function QuickSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
-  const [logMsg, setLogMsg] = useState<string[]>();
-  const [allLogs, setAllLogs] = useState<Log[]>([]);
+  const [logMsg, setLogMsg] = useState<string[]>([]);
+  const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "Initial list" }]);
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
+
+  const timeoutsRef = useRef<number[]>([]);
 
   const handleSort = async () => {
     const response = await fetch("/api/sort/quick", {
@@ -30,27 +33,27 @@ function QuickSort() {
   function processLog(newLog: Log) {
     setAllLogs((prev) => {
       const newDepth = newLog.extras?.depth ?? 0;
-
-      // Updates logs so all are smaller than the current log. 
-      // Equal is replaced, anything larger is removed to avoid forgotten 
-      // high log depths.
-      const updatedLogs = prev.filter((log) => {
-        const logDepth = log.extras?.depth ?? 0;
-        return logDepth < newDepth;
-      });
-
+      const updatedLogs = prev.filter((log) => (log.extras?.depth ?? 0) < newDepth);
       return [...updatedLogs, newLog];
     });
   }
 
   function startVisualiser(data: Log[]) {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
+
+    setAllLogs([{ list, msg: "Initial list" }]);
+    setHighlight([]);
+    setLogMsg([]);
+
     for (let i = 0; i < data.length; i++) {
-      setTimeout(() => {
-        console.log(data[i]);
+      const timeout = setTimeout(() => {
         processLog(data[i]);
-        setHighlight(data[i].extras?.highlight);
-        setLogMsg((prev) => [...(prev || []), data[i].msg]);
+        setHighlight(data[i].extras?.highlight || []);
+        setLogMsg((prev) => [...prev, data[i].msg]);
       }, i * 1500);
+
+      timeoutsRef.current.push(timeout);
     }
   }
 
@@ -81,9 +84,7 @@ function QuickSort() {
                       <div
                         key={index}
                         className={`sorting-numbox ${
-                          highlight?.includes(index) && isBottomRow
-                            ? "highlight"
-                            : ""
+                          highlight?.includes(index) && isBottomRow ? "highlight" : ""
                         }`}
                       >
                         {number}
@@ -95,12 +96,8 @@ function QuickSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <ControlPanel handleSort={handleSort} algorithmType="sort"/>
-        <div className="log-tracker">
-          {logMsg?.map((msg, idx) => (
-            <p key={idx}>{msg}</p>
-          ))}
-        </div>
+        <ControlPanel handleSort={handleSort} algorithmType="sort" />
+        <Logtracker logMsg={logMsg} />
       </div>
     </div>
   );
