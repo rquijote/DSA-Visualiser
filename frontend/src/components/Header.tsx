@@ -60,7 +60,7 @@ function Header() {
               <DropdownItem
                 key={algorithm}
                 onClick={() => navigate(algorithm, "search")}
-              >{`${algorithm} Sort`}</DropdownItem>
+              >{`${algorithm} Search`}</DropdownItem>
             ))}
           </>
         }

@@ -13,10 +13,8 @@
     Ubuntu, sans-serif;
   font-size: 100%;
   line-height: 1.15;
-  margin: 12px 0 0;
   outline: none;
   overflow: hidden;
-  padding: 0 25px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -33,4 +31,15 @@
   box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
     rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
     rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}
+
+.controlpanel-div {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.controlpanel-input {
+
 }
