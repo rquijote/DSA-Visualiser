@@ -16,20 +16,11 @@ body {
 
 .sorting-div {
     display: flex;
-    font-size: 30px;
+    font-size: 25px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.sorting-numbox {
-    padding: 10px;
-    border: 1px solid black;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
 }
 
 .sorting-wrapper {
@@ -64,5 +55,15 @@ body {
 .sorting-div-merge-sort {
   display: flex;       
   text-align: center;
-  align-items: center;                   
+  align-items: center;    
+  font-size: 25px;           
+}
+
+.sorting-numbox {
+  padding: 10px;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
 }
