@@ -2,14 +2,16 @@ import { useState } from "react";
 import type { Log, SearchRequest } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
+import ControlPanel from "../components/ControlPanel";
 
 function BinarySearch() {
   const [logMsg, setLogMsg] = useState<string[]>();
   const list = [2, 5, 8, 11, 13, 15, 17, 20, 22, 23];
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
+  const [targetNum, setTargetNum] = useState<number>(0);
 
-  const searchRequest: SearchRequest = {list: list, target: 17};
+  const searchRequest: SearchRequest = {list: list, target: targetNum};
 
   const handleSearch = async () => {
     const response = await fetch("/api/search/binary", {
@@ -58,7 +60,7 @@ function BinarySearch() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <button onClick={handleSearch}>Search</button>
+        <ControlPanel algorithmType="search" handleSearch={handleSearch} setTargetNum={setTargetNum} />
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>

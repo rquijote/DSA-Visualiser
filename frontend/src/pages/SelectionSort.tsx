@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
+import ControlPanel from "../components/ControlPanel";
 
 function SelectionSort() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -56,7 +57,7 @@ function SelectionSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <button onClick={handleSort}>Sort</button>
+        <ControlPanel handleSort={handleSort} algorithmType="sort"/>
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
+import ControlPanel from "../components/ControlPanel";
 
 function MergeSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
@@ -94,7 +95,7 @@ function MergeSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <button onClick={handleSort}>Sort</button>
+        <ControlPanel handleSort={handleSort} algorithmType="sort"/>
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>

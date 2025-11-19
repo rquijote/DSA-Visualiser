@@ -22,7 +22,7 @@ function ControlPanel({
       case "sort":
         return (
           <div className="controlpanel-div">
-            <button className="controlpanel-btn" onClick={handleSort}>
+            <button className="controlpanel-btn-primary" onClick={handleSort}>
               Sort
             </button>
           </div>
@@ -30,7 +30,7 @@ function ControlPanel({
       case "search":
         return (
           <div className="controlpanel-div">
-            <button className="controlpanel-btn" onClick={handleSearch}>
+            <button className="controlpanel-btn-primary" onClick={handleSearch}>
               Search
             </button>
             <input
@@ -46,9 +46,23 @@ function ControlPanel({
         );
       case "pathfind":
         return (
-          <button className="controlpanel-btn" onClick={handleTraverse}>
-            Traverse
-          </button>
+         <div className="controlpanel-div">
+            <button className="controlpanel-btn-primary" onClick={handleTraverse}>
+              Traverse
+            </button>
+            <button className="controlpanel-btn-secondary" onClick={handleSearch}>
+              Search
+            </button>
+            <input
+              type="number"
+              className="controlpanel-input"
+              value={targetNum}
+              onChange={(e) =>
+                setTargetNum && setTargetNum(Number(e.target.value))
+              }
+              min={1}
+            />
+          </div>
         );
       default:
         return null;

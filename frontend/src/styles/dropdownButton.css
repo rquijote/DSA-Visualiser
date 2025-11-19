@@ -17,7 +17,6 @@
 
 .dropdown-content {
     position: absolute;
-    /*min-width: 100%; Could remove? */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,7 +41,8 @@
 }
 
 .button-open {
-    border: rgb(147, 197, 253) 2px solid;
+    outline: 2px solid rgb(147, 197, 253);
+    outline-offset: -2px;
 }
 
 .content-open {

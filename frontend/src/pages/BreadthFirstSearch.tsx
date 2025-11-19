@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Log, PathfindingRequest } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
+import ControlPanel from "../components/ControlPanel";
 
 function BreadthFirstGraph() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -32,11 +33,6 @@ function BreadthFirstGraph() {
     8: { x: 440, y: 300 },
     9: { x: 440, y: 400 },
   };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setSearchNode(value);
-  }
 
   const pathfindingRequest: PathfindingRequest = {
     graph: graph,
@@ -124,9 +120,7 @@ function BreadthFirstGraph() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <input type="number" onChange={handleSearchChange} value={searchNode}></input>
-        <button onClick={handleSearch}>Search</button>
-        <button onClick={handleTraverse}>Traverse</button>
+         <ControlPanel algorithmType="pathfind" setTargetNum={setSearchNode} handleSearch={handleSearch} handleTraverse={handleTraverse}/>
         <div className="log-tracker">
           {logMsg?.map((msg, idx) => (
             <p key={idx}>{msg}</p>
