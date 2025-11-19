@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Log, PathfindingRequest } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
-import Sidebar from "../components/Sidebar";
 
 function DepthFirstGraph() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -90,7 +89,6 @@ function DepthFirstGraph() {
 
   return (
     <div className="container">
-      <Sidebar />
       <div className="visualiser-container">
         <h1>Depth First Search</h1>
         <TransformWrapper>

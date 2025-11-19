@@ -8,3 +8,8 @@
   gap: 10px;
   margin-bottom: 20px;
 }
+
+.header-nav {
+  text-decoration: none;
+  color: inherit;
+}

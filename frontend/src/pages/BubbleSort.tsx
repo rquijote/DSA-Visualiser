@@ -2,8 +2,7 @@
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import ControlPanel from "../components/ControlPanel";
 
 function BubbleSort() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -38,10 +37,8 @@ function BubbleSort() {
 
   return (
     <div>
-      <Header />
       <div className="container">
         <div className="content-container">
-          <Sidebar />
           <div className="visualiser-container">
             <h1>Bubble Sort</h1>
             <TransformWrapper>
@@ -62,7 +59,7 @@ function BubbleSort() {
                 </div>
               </TransformComponent>
             </TransformWrapper>
-            <button onClick={handleSort}>Sort</button>
+            <ControlPanel handleSort={handleSort} algorithmType="sort"/>
             <div className="log-tracker">
               {logMsg?.map((msg, idx) => (
                 <p key={idx}>{msg}</p>

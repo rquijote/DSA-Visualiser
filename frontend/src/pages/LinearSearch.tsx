@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Log, SearchRequest } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
-import Sidebar from "../components/Sidebar";
 
 function LinearSearch() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -40,7 +39,6 @@ function LinearSearch() {
 
   return (
     <div className="container">
-      <Sidebar />
       <div className="visualiser-container">
         <h1>Linear Search</h1>
         <TransformWrapper>

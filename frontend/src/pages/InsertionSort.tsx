@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
-import Sidebar from "../components/Sidebar";
 
 function InsertionSort() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -37,7 +36,6 @@ function InsertionSort() {
 
   return (
     <div className="container">
-      <Sidebar />
       <div className="visualiser-container">
         <h1>Insertion Sort</h1>
         <TransformWrapper>

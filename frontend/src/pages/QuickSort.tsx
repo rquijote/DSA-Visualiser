@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
-import Sidebar from "../components/Sidebar";
 
 function QuickSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
@@ -68,7 +67,6 @@ function QuickSort() {
 
   return (
     <div className="container">
-      <Sidebar />
       <div className="visualiser-container">
         <h1>Quick Sort</h1>
         <TransformWrapper>

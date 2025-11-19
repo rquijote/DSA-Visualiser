@@ -11,10 +11,12 @@ import LinearSearch from './pages/LinearSearch';
 import BinarySearch from './pages/BinarySearch';
 import DepthFirstSearch from './pages/DepthFirstSearch';
 import BreadthFirstSearch from "./pages/BreadthFirstSearch";
+import Header from './components/Header';
 
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <StrictMode>
+            <Header></Header>
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/bubble-sort" element={<BubbleSort />} />
