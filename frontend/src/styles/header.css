@@ -7,10 +7,4 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
-  align-items: center;
-}
-
-.header .header-text {
-    text-decoration: none;
-    color: black;
 }

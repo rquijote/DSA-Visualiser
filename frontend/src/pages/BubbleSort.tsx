@@ -3,6 +3,7 @@ import type { Log } from "../Interfaces";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "../styles/visualiser.css";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 function BubbleSort() {
   const [logMsg, setLogMsg] = useState<string[]>();
@@ -36,33 +37,37 @@ function BubbleSort() {
   }
 
   return (
-    <div className="container">
-      <div className="content-container">
-        <Sidebar handleSort={handleSort} />
-        <h1 className="content-title">Bubble Sort</h1>
-        <div className="visualiser-container">
-          <TransformWrapper>
-            <TransformComponent>
-              <div className="sorting-wrapper">
-                <div className="sorting-div">
-                  {currentList.map((number, idx) => (
-                    <div
-                      key={idx}
-                      className={`sorting-numbox ${
-                        highlight?.includes(idx) ? "highlight" : ""
-                      }`}
-                    >
-                      {number}
-                    </div>
-                  ))}
+    <div>
+      <Header />
+      <div className="container">
+        <div className="content-container">
+          <Sidebar />
+          <div className="visualiser-container">
+            <h1>Bubble Sort</h1>
+            <TransformWrapper>
+              <TransformComponent>
+                <div className="sorting-wrapper">
+                  <div className="sorting-div">
+                    {currentList.map((number, idx) => (
+                      <div
+                        key={idx}
+                        className={`sorting-numbox ${
+                          highlight?.includes(idx) ? "highlight" : ""
+                        }`}
+                      >
+                        {number}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </TransformComponent>
-          </TransformWrapper>
-          <div className="log-tracker">
-            {logMsg?.map((msg, idx) => (
-              <p key={idx}>{msg}</p>
-            ))}
+              </TransformComponent>
+            </TransformWrapper>
+            <button onClick={handleSort}>Sort</button>
+            <div className="log-tracker">
+              {logMsg?.map((msg, idx) => (
+                <p key={idx}>{msg}</p>
+              ))}
+            </div>
           </div>
         </div>
       </div>

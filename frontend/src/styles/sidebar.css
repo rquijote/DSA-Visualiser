@@ -1,6 +1,6 @@
 .sidebar-container {
     border: 1px black solid;
-    grid-row: 2;
+    margin-left: 2%;
 }
 
 .sidebar-column {
