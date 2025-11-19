@@ -1,34 +1,98 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router';
-import App from './App'
-import BubbleSort from './pages/BubbleSort'
-import InsertionSort from './pages/InsertionSort';
-import SelectionSort from './pages/SelectionSort';
-import MergeSort from './pages/MergeSort';
-import QuickSort from './pages/QuickSort';
-import LinearSearch from './pages/LinearSearch';
-import BinarySearch from './pages/BinarySearch';
-import DepthFirstSearch from './pages/DepthFirstSearch';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router";
+import App from "./App";
+import BubbleSort from "./pages/BubbleSort";
+import InsertionSort from "./pages/InsertionSort";
+import SelectionSort from "./pages/SelectionSort";
+import MergeSort from "./pages/MergeSort";
+import QuickSort from "./pages/QuickSort";
+import LinearSearch from "./pages/LinearSearch";
+import BinarySearch from "./pages/BinarySearch";
+import DepthFirstSearch from "./pages/DepthFirstSearch";
 import BreadthFirstSearch from "./pages/BreadthFirstSearch";
-import Header from './components/Header';
+import Header from "./components/Header";
+import ResponsiveWrapper from "./components/ResponsiveWrapper";
 
-createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <StrictMode>
-            <Header></Header>
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/bubble-sort" element={<BubbleSort />} />
-                <Route path="/insertion-sort" element={<InsertionSort />} />
-                <Route path="/selection-sort" element={<SelectionSort />} />
-                <Route path="/merge-sort" element={<MergeSort />} />
-                <Route path="/quick-sort" element={<QuickSort />} />
-                <Route path="/linear-search" element={<LinearSearch />} />
-                <Route path="/binary-search" element={<BinarySearch />} />
-                <Route path="/dfs" element={<DepthFirstSearch />} />
-                <Route path="/bfs" element={<BreadthFirstSearch />} />
-            </Routes>
-        </StrictMode>
-    </BrowserRouter>
-)
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <StrictMode>
+      <Header />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route
+          path="/bubble-sort"
+          element={
+            <ResponsiveWrapper>
+              <BubbleSort />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/insertion-sort"
+          element={
+            <ResponsiveWrapper>
+              <InsertionSort />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/selection-sort"
+          element={
+            <ResponsiveWrapper>
+              <SelectionSort />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/merge-sort"
+          element={
+            <ResponsiveWrapper>
+              <MergeSort />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/quick-sort"
+          element={
+            <ResponsiveWrapper>
+              <QuickSort />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/linear-search"
+          element={
+            <ResponsiveWrapper>
+              <LinearSearch />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/binary-search"
+          element={
+            <ResponsiveWrapper>
+              <BinarySearch />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/dfs"
+          element={
+            <ResponsiveWrapper>
+              <DepthFirstSearch />
+            </ResponsiveWrapper>
+          }
+        />
+        <Route
+          path="/bfs"
+          element={
+            <ResponsiveWrapper>
+              <BreadthFirstSearch />
+            </ResponsiveWrapper>
+          }
+        />
+      </Routes>
+    </StrictMode>
+  </BrowserRouter>
+);

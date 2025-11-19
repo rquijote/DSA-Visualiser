@@ -55,7 +55,7 @@ body {
   justify-content: center;     
   gap: 5px;                       
   overflow-y: auto;            
-  padding: 10px;               
+  padding-top: 10px;          
   border: 1px solid #D3D3D3;
   height: 500px;
   width: 700px;

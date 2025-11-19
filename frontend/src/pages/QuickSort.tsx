@@ -8,10 +8,9 @@ import Logtracker from "../components/LogTracker";
 function QuickSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
   const [logMsg, setLogMsg] = useState<string[]>([]);
-  const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "Initial list" }]);
+  const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "" }]);
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
-  const logRef = useRef<HTMLDivElement>(null);
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -42,7 +41,7 @@ function QuickSort() {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
-    setAllLogs([{ list, msg: "Initial list" }]);
+    setAllLogs([]);
     setHighlight([]);
     setLogMsg([]);
 
@@ -62,12 +61,6 @@ function QuickSort() {
       sortingRef.current.scrollTop = sortingRef.current.scrollHeight;
     }
   }, [allLogs]);
-
-  useEffect(() => {
-    if (logRef.current) {
-      logRef.current.scrollTop = logRef.current.scrollHeight;
-    }
-  }, [logMsg]);
 
   return (
     <div className="container">

@@ -8,10 +8,9 @@ import Logtracker from "../components/LogTracker";
 function MergeSort() {
   const list = [5, 2, 9, 2, 8, 1, 5, 14];
   const [logMsg, setLogMsg] = useState<string[]>([]);
-  const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "Initial list" }]);
+  const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "" }]);
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
-  const logRef = useRef<HTMLDivElement>(null);
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -44,7 +43,7 @@ function MergeSort() {
     timeoutsRef.current = [];
 
     // Reset state including initial list
-    setAllLogs([{ list, msg: "Initial list" }]);
+    setAllLogs([{ list, msg: "" }]);
     setHighlight([]);
     setLogMsg([]);
 
@@ -64,12 +63,6 @@ function MergeSort() {
       sortingRef.current.scrollTop = sortingRef.current.scrollHeight;
     }
   }, [allLogs]);
-
-  useEffect(() => {
-    if (logRef.current) {
-      logRef.current.scrollTop = logRef.current.scrollHeight;
-    }
-  }, [logMsg]);
 
   return (
     <div className="container">
