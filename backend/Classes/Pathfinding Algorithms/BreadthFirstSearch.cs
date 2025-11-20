@@ -32,20 +32,21 @@
                     result,
                     $"Adding {current} to result: [{string.Join(", ", result)}]",
                     new Dictionary<string, object> {
-                { "visitedHighlight", visited.ToList() },
-                { "toVisitHighlight", queue.ToList() }
+                        { "highlight", visited.ToList() },
+                        { "bgHighlight", queue.ToList() }
                     });
 
-                if (current == targetNode) 
+                if (current == targetNode)
                 {
                     AddToLog(
-                            result,
-                            $"Target node {targetNode} found. Ending search.",
-                            new Dictionary<string, object> {
-                        { "visitedHighlight", visited.ToList() },
-                        { "toVisitHighlight", queue.ToList() }
-                            });
-                    return result; 
+                        result,
+                        $"Target node {targetNode} found. Ending search.",
+                        new Dictionary<string, object> {
+                            { "highlight", visited.ToList() },
+                            { "alertHighlight", new List<int> { current } },
+                            { "bgHighlight", queue.ToList() }
+                        });
+                    return result;
                 }
 
                 foreach (int neighbor in graph[current])
@@ -58,8 +59,8 @@
                             result,
                             $"Node {neighbor} added to queue (to visit next): [{string.Join(", ", queue)}]",
                             new Dictionary<string, object> {
-                        { "visitedHighlight", visited.ToList() },
-                        { "toVisitHighlight", queue.ToList() }
+                                { "highlight", visited.ToList() },
+                                { "bgHighlight", queue.ToList() }
                             });
                     }
                 }
@@ -69,8 +70,8 @@
                 result,
                 $"Completed traversal: [{string.Join(", ", result)}]",
                 new Dictionary<string, object> {
-                { "visitedHighlight", visited.ToList() },
-                { "toVisitHighlight", new List<int>() } 
+                    { "highlight", visited.ToList() },
+                    { "bgHighlight", new List<int>() }
                 });
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))

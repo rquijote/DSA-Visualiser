@@ -7,8 +7,9 @@ import Logtracker from "../components/LogTracker";
 
 function DepthFirstGraph() {
   const [logMsg, setLogMsg] = useState<string[]>([]);
-  const [visited, setVisited] = useState<number[]>();
-  const [toVisit, setToVisit] = useState<number[]>();
+  const [highlight, setHighlight] = useState<number[]>();
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [bgHighlight, setBgHighlight] = useState<number[]>();
   const [searchNode, setSearchNode] = useState<number>(0);
   const timeoutsRef = useRef<number[]>([]);
 
@@ -75,14 +76,16 @@ function DepthFirstGraph() {
   function startVisualiser(data: Log[]) {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
-    setVisited([]);
-    setToVisit([]);
+    setHighlight([]);
+    setAlertHighlight([]);
+    setBgHighlight([]);
     setLogMsg([]);
 
     data.forEach((log, i) => {
       const timeout = setTimeout(() => {
-        setVisited(log.extras?.visitedHighlight || []);
-        setToVisit(log.extras?.toVisitHighlight || []);
+        setHighlight(log.extras?.highlight || []);
+        setAlertHighlight(log.extras?.alertHighlight || []);
+        setBgHighlight(log.extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
       }, i * 1000);
 
@@ -122,21 +125,28 @@ function DepthFirstGraph() {
                       cy={pos.y}
                       r={40}
                       stroke="black"
-                      fill={
-                        visited?.includes(Number(node))
-                          ? "black"
-                          : toVisit?.includes(Number(node))
-                          ? "lightgrey"
-                          : "white"
-                      }
                       strokeWidth={2}
+                      className={
+                        alertHighlight?.includes(Number(node))
+                          ? "alert-highlight-node"
+                          : highlight?.includes(Number(node))
+                          ? "highlight-node"
+                          : bgHighlight?.includes(Number(node))
+                          ? "bg-highlight-node"
+                          : "normal-node"
+                      }
                     />
                     <text
                       x={pos.x}
                       y={pos.y}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      fill={visited?.includes(Number(node)) ? "white" : "black"}
+                      fill={
+                        alertHighlight?.includes(Number(node)) ||
+                        highlight?.includes(Number(node))
+                          ? "white"
+                          : "black"
+                      }
                       fontSize={22}
                     >
                       {node}

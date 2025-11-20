@@ -10,7 +10,7 @@
 
         private List<int> DFS_Helper(Dictionary<int, List<int>> graph, int startNode, int? targetNode = null)
         {
-            HashSet<int> visited = new HashSet<int>(); 
+            HashSet<int> visited = new HashSet<int>();
             Stack<int> stack = new Stack<int>();
             List<int> result = new List<int>();
 
@@ -29,23 +29,23 @@
                 result.Add(current);
 
                 AddToLog(
-                result,
-                 $"Adding {current} to result: [{string.Join(", ", result)}]",
-                new Dictionary<string, object> {
-                    { "visitedHighlight", visited.ToList() },       
-                    { "toVisitHighlight", stack.ToList() } 
-                });
-
+                    result,
+                    $"Adding {current} to result: [{string.Join(", ", result)}]",
+                    new Dictionary<string, object> {
+                        { "highlight", visited.ToList() },
+                        { "bgHighlight", stack.ToList() }
+                    });
 
                 if (current == targetNode)
                 {
                     AddToLog(
-                            result,
-                            $"Target node {targetNode} found. Ending search.",
-                            new Dictionary<string, object> {
-                        { "visitedHighlight", visited.ToList() },
-                        { "toVisitHighlight", stack.ToList() }
-                            });
+                        result,
+                        $"Target node {targetNode} found. Ending search.",
+                        new Dictionary<string, object> {
+                            { "highlight", visited.ToList() },
+                            { "alertHighlight", new List<int> { targetNode.Value } },
+                            { "bgHighlight", stack.ToList() }
+                        });
                     return result;
                 }
 
@@ -59,8 +59,8 @@
                             result,
                             $"Pushed node {neighbor} onto to visit stack",
                             new Dictionary<string, object> {
-                        { "visitedHighlight", visited.ToList() },
-                        { "toVisitHighlight", stack.Reverse().ToList() }
+                                { "highlight", visited.ToList() },
+                                { "bgHighlight", stack.Reverse().ToList() }
                             });
                     }
                 }
@@ -70,8 +70,8 @@
                 result,
                 $"Completed traversal: [{string.Join(", ", result)}]",
                 new Dictionary<string, object> {
-            { "visitedHighlight", visited.ToList() },
-            { "toVisitHighlight", new List<int>() } 
+                    { "highlight", visited.ToList() },
+                    { "bgHighlight", new List<int>() }
                 });
 
             if (targetNode.HasValue && !result.Contains(targetNode.Value))

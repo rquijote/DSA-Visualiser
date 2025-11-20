@@ -54,6 +54,22 @@ body {
     color: black; 
 }
 
+.highlight-node {
+    fill: #34b1fd; 
+}
+
+.alert-highlight-node {
+    fill: #FF9800;   
+}
+
+.bg-highlight-node {
+    fill: #c4c2c2;  
+}
+
+.normal-node {
+    fill: white;   
+}
+
 .log-tracker {
     height: 500px;
     overflow-y: auto;
