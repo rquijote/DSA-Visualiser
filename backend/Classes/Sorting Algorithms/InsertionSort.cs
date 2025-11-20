@@ -10,17 +10,21 @@
                 int j = i - 1;
                 bool moved = false;
 
+                AddToLog(list,
+                    $"Comparing index {j} ({list[j]}) and {i} ({temp})",
+                    new Dictionary<string, object> { { "highlight", new List<int> { j, i } } });
+
                 while (j >= 0 && list[j] > temp)
                 {
                     AddToLog(list,
                         $"index at {j + 1} is bigger than index at {j}, index {j} shifted to index {j + 1}",
-                        new Dictionary<string, object> { { "highlight", new List<int> { j, j + 1 } } });
+                        new Dictionary<string, object> { { "alertHighlight", new List<int> { j, j + 1 } } });
 
                     list[j + 1] = list[j];
 
                     AddToLog(list,
                         $"Shifted {list[j]} from index {j} to index {j + 1}",
-                        new Dictionary<string, object> { { "highlight", new List<int> { j, j + 1 } } });
+                        new Dictionary<string, object> { { "alertHighlight", new List<int> { j, j + 1 } } });
 
                     j--;
                     moved = true;
@@ -32,7 +36,7 @@
                 {
                     AddToLog(list,
                         $"Inserted {temp} at index {j + 1}. Current list: [{string.Join(", ", list)}]",
-                        new Dictionary<string, object> { { "highlight", new List<int> { j + 1 } } });
+                        new Dictionary<string, object> { { "alertHighlight", new List<int> { j + 1 } } });
                 }
                 else
                 {

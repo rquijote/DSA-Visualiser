@@ -7,22 +7,30 @@
             for (int i = 0; i < list.Count - 1; i++)
             {
                 int min = i;
+                int originalIndex = i; // store original position for highlighting
                 AddToLog(list,
-                    $"Min number is set to value at {min} ({list[min]})",
+                    $"Starting position {i} with value {list[i]}",
                     new Dictionary<string, object> { { "highlight", new List<int> { i } } });
 
                 for (int j = i + 1; j < list.Count; j++)
                 {
+                    // Hacky? If min is the original i, stay blue. Avoids min cause original i to be alertHighlighted.
+                    var alert = min != i ? new List<int> { min } : new List<int>();
+
                     AddToLog(list,
-                        $"Comparing min value {list[min]} to value {list[j]}.",
-                        new Dictionary<string, object> { { "highlight", new List<int> { min, j } } });
+                        $"Comparing min value {list[min]} to value {list[j]}",
+                        new Dictionary<string, object>
+                        {
+                            { "highlight", new List<int> { i, j } },
+                            { "alertHighlight", alert }
+                        });
 
                     if (list[j] < list[min])
                     {
-                        AddToLog(list,
-                            $"Set new min to value at index {j} ({list[j]}).",
-                            new Dictionary<string, object> { { "highlight", new List<int> { j } } });
                         min = j;
+                        AddToLog(list,
+                            $"New min found at index {j} ({list[j]})",
+                            new Dictionary<string, object> { { "alertHighlight", new List<int> { min } } });
                     }
                 }
 
@@ -33,7 +41,7 @@
                 else
                 {
                     AddToLog(list,
-                        $"No swap needed for index {i} ({list[i]}).",
+                        $"No swap needed for index {i} ({list[i]})",
                         new Dictionary<string, object> { { "highlight", new List<int> { i } } });
                 }
             }
@@ -41,6 +49,7 @@
             AddToLog(list,
                 $"Sorting complete. Final list: [{string.Join(", ", list)}]",
                 new Dictionary<string, object>());
+
             return list;
         }
 
@@ -51,8 +60,8 @@
             list[min] = temp;
 
             AddToLog(list,
-                $"Swapped index {i} ({list[i]}) with index {min} ({list[min]}).",
-                new Dictionary<string, object> { { "highlight", new List<int> { i, min } } });
+                $"Swapped index {i} ({list[i]}) with index {min} ({list[min]})",
+                new Dictionary<string, object> { { "alertHighlight", new List<int> { i, min } } });
         }
     }
 }

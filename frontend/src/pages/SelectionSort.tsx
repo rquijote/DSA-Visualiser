@@ -6,10 +6,11 @@ import ControlPanel from "../components/ControlPanel";
 import Logtracker from "../components/LogTracker";
 
 function SelectionSort() {
-  const initialList = [1, 5, 8, 9, 2, 4, 11, 6];
+  const initialList = [8, 5, 8, 9, 2, 4, 11, 6];
   const [logMsg, setLogMsg] = useState<string[]>([]);
   const [currentList, setCurrentList] = useState<number[]>(initialList);
   const [highlight, setHighlight] = useState<number[]>();
+  const [alertHighlight, setAlertHighlight] = useState<number[]>(); // Added for alert highlights
   const timeoutsRef = useRef<number[]>([]);
 
   const handleSort = async () => {
@@ -28,18 +29,19 @@ function SelectionSort() {
   };
 
   function startVisualiser(data: Log[]) {
-    // Clear previous timeouts
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
     setCurrentList(initialList);
     setHighlight([]);
+    setAlertHighlight([]);
     setLogMsg([]);
 
     data.forEach((log, i) => {
       const timeout = setTimeout(() => {
         setCurrentList(log.list);
         setHighlight(log.extras?.highlight || []);
+        setAlertHighlight(log.extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
       }, i * 1000);
 
@@ -59,7 +61,11 @@ function SelectionSort() {
                   <div
                     key={idx}
                     className={`sorting-numbox ${
-                      highlight?.includes(idx) ? "highlight" : ""
+                      alertHighlight?.includes(idx)
+                        ? "alert-highlight"
+                        : highlight?.includes(idx)
+                        ? "highlight"
+                        : ""
                     }`}
                   >
                     {number}

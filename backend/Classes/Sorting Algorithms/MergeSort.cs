@@ -35,7 +35,7 @@
                     $"Splitting right side of list [{string.Join(", ", list)}]",
                     new Dictionary<string, object>
                     {
-                        { "highlight", Enumerable.Range(mid, list.Count - mid).ToList() },
+                        { "alertHighlight", Enumerable.Range(mid, list.Count - mid).ToList() },
                         { "depth", depth }
                     }
                 );
@@ -47,7 +47,7 @@
                     $"Returning to previous call with original list to sort the right side [{string.Join(", ", list)}]",
                     new Dictionary<string, object>
                     {
-                        { "highlight", Enumerable.Range(mid, list.Count - mid).ToList() },
+                        { "alertHighlight", Enumerable.Range(mid, list.Count - mid).ToList() },
                         { "depth", depth }
                     }
                 );
@@ -62,95 +62,106 @@
             {
                 AddToLog(
                     merged.Count == 0 ? new List<int> { left[i], right[j] } : merged,
-                    $"Comparing {left[i]} (left) and {right[j]} (right)", 
+                    $"Comparing {left[i]} (left) and {right[j]} (right)",
                     new Dictionary<string, object>
                     {
-                        { "highlight", new List<int> () },
+                        { "highlight", new List<int>() },
                         { "depth", depth }
                     }
                 );
 
                 if (left[i] <= right[j])
                 {
+                    merged.Add(left[i]);
+                    int indexInMerged = merged.Count - 1;
+
                     var leftoverMessage = (i + 1 < left.Count)
-                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
+                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j, right.Count - j))}"
                         : "no more leftovers in right";
 
                     AddToLog(
-                        merged.Count == 0 ? new List<int> { left[i] } : merged,
+                        merged,
                         $"Adding {left[i]} from left, {leftoverMessage}",
                         new Dictionary<string, object>
                         {
-                            { "highlight", new List<int> { } },
+                            { "highlight", new List<int> { indexInMerged } },
                             { "depth", depth }
                         }
                     );
-                    merged.Add(left[i++]);
+                    i++;
                 }
                 else
                 {
+                    merged.Add(right[j]);
+                    int indexInMerged = merged.Count - 1;
+
                     var leftoverMessage = (j + 1 < right.Count)
-                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
+                        ? $"leftovers in left: {string.Join(", ", left.GetRange(i, left.Count - i))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                         : "no more leftovers in right";
 
                     AddToLog(
-                        merged.Count == 0 ? new List<int> { right[j] } : merged,
+                        merged,
                         $"Adding {right[j]} from right, {leftoverMessage}",
                         new Dictionary<string, object>
                         {
-                            { "highlight", new List<int> { } },
+                            { "alertHighlight", new List<int> { indexInMerged } },
                             { "depth", depth }
                         }
                     );
-                    merged.Add(right[j++]);
+                    j++;
                 }
             }
 
-            // Add leftovers from left and right
+            // Add leftover elements from left
             while (i < left.Count)
             {
-                string leftoverMessage = (i + 1 < left.Count)
-                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
-                    : "no more leftovers in left";
                 merged.Add(left[i]);
+                int indexInMerged = merged.Count - 1;
+
+                string leftoverMessage = (i + 1 < left.Count)
+                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j, right.Count - j))}"
+                    : "no more leftovers in left";
+
                 AddToLog(
-                    merged.Count == 0 ? new List<int> { } : merged,
+                    merged,
                     $"Adding leftover {left[i]} from left, {leftoverMessage}",
                     new Dictionary<string, object>
                     {
-                        { "highlight", new List<int> { } },
+                        { "highlight", new List<int> { indexInMerged } },
                         { "depth", depth }
                     }
                 );
                 i++;
             }
 
+            // Add leftover elements from right
             while (j < right.Count)
             {
-                string leftoverMessage = (j + 1 < right.Count && left.Count - (i + 1) > 0)
-                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i + 1, left.Count - (i + 1)))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
+                merged.Add(right[j]);
+                int indexInMerged = merged.Count - 1;
+
+                string leftoverMessage = (j + 1 < right.Count && left.Count - i > 0)
+                    ? $"leftovers in left: {string.Join(", ", left.GetRange(i, left.Count - i))}. leftovers in right: {string.Join(", ", right.GetRange(j + 1, right.Count - (j + 1)))}"
                     : "no more leftovers in right";
 
-                merged.Add(right[j]);
                 AddToLog(
-                    merged.Count == 0 ? new List<int> { right[j] } : merged,
+                    merged,
                     $"Adding leftover {right[j]} from right, {leftoverMessage}",
                     new Dictionary<string, object>
                     {
-                        { "highlight", new List<int> { } },
+                        { "alertHighlight", new List<int> { indexInMerged } },
                         { "depth", depth }
                     }
                 );
                 j++;
             }
 
-
             AddToLog(
                 merged,
                 $"Finished sorting, merged result: [{string.Join(", ", merged)}]",
                 new Dictionary<string, object>
                 {
-                    { "highlight", new List<int> () },
+                    { "highlight", new List<int>() },
                     { "depth", depth }
                 }
             );

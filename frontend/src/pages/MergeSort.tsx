@@ -11,6 +11,7 @@ function MergeSort() {
   const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "" }]);
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -32,7 +33,9 @@ function MergeSort() {
   function processLog(newLog: Log) {
     setAllLogs((prev) => {
       const newDepth = newLog.extras?.depth ?? 0;
-      const updatedLogs = prev.filter((log) => (log.extras?.depth ?? 0) < newDepth);
+      const updatedLogs = prev.filter(
+        (log) => (log.extras?.depth ?? 0) < newDepth
+      );
       return [...updatedLogs, newLog];
     });
   }
@@ -46,11 +49,13 @@ function MergeSort() {
     setAllLogs([{ list, msg: "" }]);
     setHighlight([]);
     setLogMsg([]);
+    setAlertHighlight([]);
 
     for (let i = 0; i < data.length; i++) {
       const timeout = setTimeout(() => {
         processLog(data[i]);
         setHighlight(data[i].extras?.highlight || []);
+        setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
       }, i * 1500);
 
@@ -72,19 +77,30 @@ function MergeSort() {
           <TransformComponent>
             <div ref={sortingRef} className="sorting-wrapper-merge-sort">
               {allLogs.map((log, logIdx) => {
-                const isBottomRow = logIdx === allLogs.length - 1;
                 return (
                   <div className="sorting-div-merge-sort" key={logIdx}>
-                    {log.list.map((number, index) => (
-                      <div
-                        key={index}
-                        className={`sorting-numbox ${
-                          highlight?.includes(index) && isBottomRow ? "highlight" : ""
-                        }`}
-                      >
-                        {number}
-                      </div>
-                    ))}
+                    {log.list.map((number, index) => {
+                      const isBottomRow = logIdx === allLogs.length - 1;
+                      const isHighlight =
+                        highlight?.includes(index) && isBottomRow;
+                      const isAlert =
+                        alertHighlight?.includes(index) && isBottomRow;
+
+                      return (
+                        <div
+                          key={index}
+                          className={`sorting-numbox ${
+                            isAlert
+                              ? "alert-highlight"
+                              : isHighlight
+                              ? "highlight"
+                              : ""
+                          }`}
+                        >
+                          {number}
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })}
