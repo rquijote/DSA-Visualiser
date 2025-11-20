@@ -47,7 +47,7 @@
 
             AddToLog(list,
                 $"Swapped index {index1} ({list[index1]}) with index {index2} ({list[index2]}). Current list: [{string.Join(", ", list)}]",
-                new Dictionary<string, object> { { "highlight", new List<int> { index1, index2 } } });
+                new Dictionary<string, object> { { "alertHighlight", new List<int> { index1, index2 } } });
         }
     }
 }

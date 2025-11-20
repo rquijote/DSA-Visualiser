@@ -10,6 +10,7 @@ function BubbleSort() {
   const list = [1, 5, 8, 9, 2, 4, 11, 6];
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
 
   // Store active timeouts
   const timeoutsRef = useRef<number[]>([]);
@@ -37,12 +38,14 @@ function BubbleSort() {
     // Reset state
     setCurrentList(list);
     setHighlight([]);
+    setAlertHighlight([]);
     setLogMsg([]);
 
     for (let i = 0; i < data.length; i++) {
       const timeout = setTimeout(() => {
         setCurrentList(data[i].list);
         setHighlight(data[i].extras?.highlight || []);
+        setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
       }, i * 1000);
 
@@ -64,7 +67,11 @@ function BubbleSort() {
                       <div
                         key={idx}
                         className={`sorting-numbox ${
-                          highlight?.includes(idx) ? "highlight" : ""
+                          alertHighlight?.includes(idx)
+                            ? "alert-highlight"
+                            : highlight?.includes(idx)
+                            ? "highlight"
+                            : ""
                         }`}
                       >
                         {number}
