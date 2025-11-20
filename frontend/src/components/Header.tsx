@@ -38,45 +38,66 @@ function Header() {
 
   return (
     <header className="header">
-      <p ><NavLink to="/" className="header-nav">Home</NavLink></p>
+      <p>
+        <NavLink to="/" className="header-nav">
+          Home
+        </NavLink>
+      </p>
       <Dropdown
         buttonText="Sorting Algorithms"
-        content={
+        content={(closeDropdown) => (
           <>
             {sortingAlgorithms.map((algorithm) => (
               <DropdownItem
                 key={algorithm}
-                onClick={() => navigate(algorithm, "sort")}
-              >{`${algorithm} Sort`}</DropdownItem>
+                onClick={() => {
+                  navigate(algorithm, "sort");
+                  closeDropdown();
+                }}
+              >
+                {`${algorithm} Sort`}
+              </DropdownItem>
             ))}
           </>
-        }
+        )}
       />
+
       <Dropdown
         buttonText="Searching Algorithms"
-        content={
+        content={(closeDropdown) => (
           <>
             {searchingAlgorithms.map((algorithm) => (
               <DropdownItem
                 key={algorithm}
-                onClick={() => navigate(algorithm, "search")}
-              >{`${algorithm} Search`}</DropdownItem>
+                onClick={() => {
+                  navigate(algorithm, "search");
+                  closeDropdown();
+                }}
+              >
+                {`${algorithm} Search`}
+              </DropdownItem>
             ))}
           </>
-        }
+        )}
       />
+
       <Dropdown
         buttonText="Pathfinding Algorithms"
-        content={
+        content={(closeDropdown) => (
           <>
             {pathfindingAlgorithms.map((algorithm) => (
               <DropdownItem
                 key={algorithm}
-                onClick={() => navigate(algorithm, "pathfind")}
-              >{`${algorithm}`}</DropdownItem>
+                onClick={() => {
+                  navigate(algorithm, "pathfind");
+                  closeDropdown();
+                }}
+              >
+                {`${algorithm}`}
+              </DropdownItem>
             ))}
           </>
-        }
+        )}
       />
     </header>
   );

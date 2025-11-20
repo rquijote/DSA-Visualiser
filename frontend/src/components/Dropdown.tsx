@@ -7,7 +7,7 @@ function Dropdown({
   content,
 }: {
   buttonText: string;
-  content: React.ReactNode;
+  content: (closeDropdown: () => void) => React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -17,26 +17,28 @@ function Dropdown({
     setOpen((open) => !open);
   }
 
+  const closeDropdown = () => setOpen(false);
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-            setOpen(false);
-        }
-    }
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
 
     document.addEventListener("click", handler);
 
     return () => {
-        document.removeEventListener("click", handler);
-    }
-  }, [dropdownRef])
+      document.removeEventListener("click", handler);
+    };
+  }, [dropdownRef]);
 
   return (
     <div className="dropdown" ref={dropdownRef}>
       <DropdownButton toggle={toggleDropdown} open={open}>
         {buttonText}
       </DropdownButton>
-      <DropdownContent open={open}>{content}</DropdownContent>
+      <DropdownContent open={open}>{content(closeDropdown)}</DropdownContent>
     </div>
   );
 }
