@@ -10,6 +10,8 @@ function BinarySearch() {
   const [logMsg, setLogMsg] = useState<string[]>([]);
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [bgHighlight, setBgHighlight] = useState<number[]>();
   const [targetNum, setTargetNum] = useState<number>(0);
   const timeoutsRef = useRef<number[]>([]);
 
@@ -31,17 +33,20 @@ function BinarySearch() {
   };
 
   function startVisualiser(data: Log[]) {
-    // Clear previous timeouts
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
     setCurrentList(list);
     setHighlight([]);
+    setAlertHighlight([]);
+    setBgHighlight([]);
     setLogMsg([]);
 
     data.forEach((log, i) => {
       const timeout = setTimeout(() => {
         setCurrentList(log.list);
         setHighlight(log.extras?.highlight || []);
+        setAlertHighlight(log.extras?.alertHighlight || []);
+        setBgHighlight(log.extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
       }, i * 1000);
 
@@ -57,16 +62,28 @@ function BinarySearch() {
           <TransformComponent>
             <div className="sorting-wrapper">
               <div className="sorting-div">
-                {currentList.map((number, idx) => (
-                  <div
-                    key={idx}
-                    className={`sorting-numbox ${
-                      highlight?.includes(idx) ? "highlight" : ""
-                    }`}
-                  >
-                    {number}
-                  </div>
-                ))}
+                {currentList.map((number, idx) => {
+                  const isHighlight = highlight?.includes(idx);
+                  const isAlert = alertHighlight?.includes(idx);
+                  const isBg = bgHighlight?.includes(idx);
+
+                  return (
+                    <div
+                      key={idx}
+                      className={`sorting-numbox ${
+                        isAlert
+                          ? "alert-highlight"
+                          : isHighlight
+                          ? "highlight"
+                          : isBg
+                          ? "bg-highlight"
+                          : ""
+                      }`}
+                    >
+                      {number}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </TransformComponent>

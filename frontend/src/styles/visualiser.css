@@ -49,6 +49,11 @@ body {
     color: white;
 }
 
+.bg-highlight {
+    background-color: #c4c2c2;
+    color: black; 
+}
+
 .log-tracker {
     height: 500px;
     overflow-y: auto;

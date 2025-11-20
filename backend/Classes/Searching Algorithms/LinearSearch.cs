@@ -18,7 +18,7 @@
                 {
                     AddToLog(list,
                         $"Found {number} at index: {i}. Took {GetIterations()} iterations.",
-                        new Dictionary<string, object> { { "highlight", new List<int> { i } } });
+                        new Dictionary<string, object> { { "alertHighlight", new List<int> { i } } });
                     return i;
                 }
             }

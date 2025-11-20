@@ -4,6 +4,7 @@
     extras?: {
         highlight?: number[];
         alertHighlight?: number[]; // For swaps or anything that deviates from normal.
+        bgHighlight?: number[]; // Currently for quick sort only, light bg
         depth?: number;
         toVisitHighlight?: number[];
         visitedHighlight?: number[];

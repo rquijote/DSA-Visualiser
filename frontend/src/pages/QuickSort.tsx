@@ -6,10 +6,12 @@ import ControlPanel from "../components/ControlPanel";
 import Logtracker from "../components/LogTracker";
 
 function QuickSort() {
-  const list = [5, 2, 9, 2, 8, 1, 5, 14];
+  const list = [5, 2, 9, 2, 8, 1, 5, 4];
   const [logMsg, setLogMsg] = useState<string[]>([]);
   const [allLogs, setAllLogs] = useState<Log[]>([{ list, msg: "" }]);
   const [highlight, setHighlight] = useState<number[]>();
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [bgHighlight, setBgHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
 
   const timeoutsRef = useRef<number[]>([]);
@@ -43,12 +45,16 @@ function QuickSort() {
 
     setAllLogs([]);
     setHighlight([]);
+    setAlertHighlight([]);
+    setBgHighlight([]);
     setLogMsg([]);
 
     for (let i = 0; i < data.length; i++) {
       const timeout = setTimeout(() => {
         processLog(data[i]);
         setHighlight(data[i].extras?.highlight || []);
+        setAlertHighlight(data[i].extras?.alertHighlight || []);
+        setBgHighlight(data[i].extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
       }, i * 1500);
 
@@ -73,16 +79,28 @@ function QuickSort() {
                 const isBottomRow = logIdx === allLogs.length - 1;
                 return (
                   <div className="sorting-div-merge-sort" key={logIdx}>
-                    {log.list.map((number, index) => (
-                      <div
-                        key={index}
-                        className={`sorting-numbox ${
-                          highlight?.includes(index) && isBottomRow ? "highlight" : ""
-                        }`}
-                      >
-                        {number}
-                      </div>
-                    ))}
+                    {log.list.map((number, index) => {
+                      const isHighlight = highlight?.includes(index) && isBottomRow;
+                      const isAlert = alertHighlight?.includes(index) && isBottomRow;
+                      const isBg = bgHighlight?.includes(index) && isBottomRow;
+
+                      return (
+                        <div
+                          key={index}
+                          className={`sorting-numbox ${
+                            isAlert
+                              ? "alert-highlight"
+                              : isHighlight
+                              ? "highlight"
+                              : isBg
+                              ? "bg-highlight"
+                              : ""
+                          }`}
+                        >
+                          {number}
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })}

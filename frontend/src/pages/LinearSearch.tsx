@@ -10,7 +10,8 @@ function LinearSearch() {
   const list = [2, 5, 8, 11, 13, 15, 17, 20, 22, 23];
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
-  const [targetNum, setTargetNum] = useState<number>(1);
+  const [targetNum, setTargetNum] = useState<number>(0);
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -38,11 +39,13 @@ function LinearSearch() {
     setCurrentList(list);
     setHighlight([]);
     setLogMsg([]);
+    setAlertHighlight([]);
 
     for (let i = 0; i < data.length; i++) {
       const timeout = setTimeout(() => {
         setCurrentList(data[i].list);
         setHighlight(data[i].extras?.highlight || []);
+        setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
       }, i * 1000);
 
@@ -59,15 +62,19 @@ function LinearSearch() {
             <div className="sorting-wrapper">
               <div className="sorting-div">
                 {currentList.map((number, idx) => (
-                  <div
-                    key={idx}
-                    className={`sorting-numbox ${
-                      highlight?.includes(idx) ? "highlight" : ""
-                    }`}
-                  >
-                    {number}
-                  </div>
-                ))}
+                      <div
+                        key={idx}
+                        className={`sorting-numbox ${
+                          alertHighlight?.includes(idx)
+                            ? "alert-highlight"
+                            : highlight?.includes(idx)
+                            ? "highlight"
+                            : ""
+                        }`}
+                      >
+                        {number}
+                      </div>
+                    ))}
               </div>
             </div>
           </TransformComponent>
