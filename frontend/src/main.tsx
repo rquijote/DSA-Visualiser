@@ -13,6 +13,7 @@ import DepthFirstSearch from "./pages/DepthFirstSearch";
 import BreadthFirstSearch from "./pages/BreadthFirstSearch";
 import Header from "./components/Header";
 import ResponsiveWrapper from "./components/ResponsiveWrapper";
+import "./styles/main.css"
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

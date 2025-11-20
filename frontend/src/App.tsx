@@ -1,25 +1,58 @@
 import { NavLink } from "react-router";
 
 function App() {
-    // This should later be turned into a sidebar or something.
-    return <div>
-        <h1>Algorithms</h1>
+  return (
+    <div className="home-container">
+      <div className="home-content-container">
+        <h1 className="main-title">Algorithms</h1>
 
-        <h2>Sorting Algorithms</h2>
-        <button><NavLink to="/bubble-sort">Bubble Sort</NavLink></button>
-        <button><NavLink to="/insertion-sort">Insertion Sort</NavLink></button>
-        <button><NavLink to="/selection-sort">Selection Sort</NavLink></button>
-        <button><NavLink to="/merge-sort">Merge Sort</NavLink></button>
-        <button><NavLink to="/quick-sort">Quick Sort</NavLink></button>
+        <div className="home-section">
+          <h2 className="home-h2">Sorting Algorithms</h2>
+          <div className="home-button-grid">
+            <NavLink className="home-alg-btn primary" to="/bubble-sort">
+              Bubble Sort
+            </NavLink>
+            <NavLink className="home-alg-btn secondary" to="/insertion-sort">
+              Insertion Sort
+            </NavLink>
+            <NavLink className="home-alg-btn tertiary" to="/selection-sort">
+              Selection Sort
+            </NavLink>
+            <NavLink className="home-alg-btn quaternary" to="/merge-sort">
+              Merge Sort
+            </NavLink>
+            <NavLink className="home-alg-btn primary" to="/quick-sort">
+              Quick Sort
+            </NavLink>
+          </div>
+        </div>
 
-        <h2>Searching Algorithms</h2>
-        <button><NavLink to="/linear-search">Linear Search</NavLink></button>
-        <button><NavLink to="/binary-search">Binary Search</NavLink></button>
+        <div className="home-section">
+          <h2 className="home-h2">Searching Algorithms</h2>
+          <div className="home-button-grid">
+            <NavLink className="home-alg-btn secondary" to="/linear-search">
+              Linear Search
+            </NavLink>
+            <NavLink className="home-alg-btn tertiary" to="/binary-search">
+              Binary Search
+            </NavLink>
+          </div>
+        </div>
 
-        <h2>Pathfinding Algorithms</h2>
-        <button><NavLink to="/dfs">Depth First Search</NavLink></button>
-        <button><NavLink to="/bfs">Breadth First Search</NavLink></button>
+        <div className="home-section">
+          <h2 className="home-h2">Pathfinding Algorithms</h2>
+          <div className="home-button-grid">
+            <NavLink className="home-alg-btn quaternary" to="/dfs">
+              Depth First Search
+            </NavLink>
+            <NavLink className="home-alg-btn primary" to="/bfs">
+              Breadth First Search
+            </NavLink>
+          </div>
+        </div>
+      </div>
     </div>
+  );
 }
 
-export default App
+export default App;
