@@ -7,6 +7,8 @@ interface PanelTypes {
   algorithmType: "sort" | "search" | "pathfind";
   targetNum?: number;
   setTargetNum?: (num: number) => void;
+  speed?: number;
+  setSpeed?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function ControlPanel({
@@ -16,7 +18,39 @@ function ControlPanel({
   algorithmType,
   targetNum,
   setTargetNum,
+  speed,
+  setSpeed,
 }: PanelTypes) {
+  function renderSpeedBtns() {
+    return (
+      <div className="speed-controls">
+        <button
+          className="controlpanel-btn-secondary"
+          onClick={() =>
+            setSpeed &&
+            setSpeed((prev) =>
+              prev ? (prev + 1000 > 10000 ? 10000 : prev + 1000) : 1000
+            )
+          }
+        >
+          +
+        </button>
+        <span>{speed}ms</span>
+        <button
+          className="controlpanel-btn-secondary"
+          onClick={() =>
+            setSpeed &&
+            setSpeed((prev) =>
+              prev && prev - 1000 < 1000 ? 1000 : prev - 1000
+            )
+          }
+        >
+          -
+        </button>
+      </div>
+    );
+  }
+
   function renderPanel() {
     switch (algorithmType) {
       case "sort":
@@ -25,6 +59,7 @@ function ControlPanel({
             <button className="controlpanel-btn-primary" onClick={handleSort}>
               Sort
             </button>
+            {renderSpeedBtns()}
           </div>
         );
       case "search":
@@ -42,15 +77,22 @@ function ControlPanel({
               }
               min={1}
             />
+            {renderSpeedBtns()}
           </div>
         );
       case "pathfind":
         return (
-         <div className="controlpanel-div">
-            <button className="controlpanel-btn-primary" onClick={handleTraverse}>
+          <div className="controlpanel-div">
+            <button
+              className="controlpanel-btn-primary"
+              onClick={handleTraverse}
+            >
               Traverse
             </button>
-            <button className="controlpanel-btn-secondary" onClick={handleSearch}>
+            <button
+              className="controlpanel-btn-secondary"
+              onClick={handleSearch}
+            >
               Search
             </button>
             <input
@@ -62,6 +104,7 @@ function ControlPanel({
               }
               min={1}
             />
+            {renderSpeedBtns()}
           </div>
         );
       default:

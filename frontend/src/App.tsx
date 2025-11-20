@@ -1,11 +1,22 @@
 import { NavLink } from "react-router";
+import { FaGithub } from "react-icons/fa";
 
 function App() {
   return (
     <div className="home-container">
       <div className="home-content-container">
         <h1 className="main-title">Algorithm Visualiser</h1>
-
+        <div className="home-subtitle-heading">
+          <FaGithub />
+          <a
+            href="https://github.com/rquijote/DSA-Visualiser"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="subtitle-link"
+          >
+            Created by rquijote
+          </a>
+        </div>
         <div className="home-section">
           <h2 className="home-h2">Sorting</h2>
           <div className="home-button-grid">
@@ -26,7 +37,6 @@ function App() {
             </NavLink>
           </div>
         </div>
-
         <div className="home-section">
           <h2 className="home-h2">Searching</h2>
           <div className="home-button-grid">
@@ -38,7 +48,6 @@ function App() {
             </NavLink>
           </div>
         </div>
-
         <div className="home-section">
           <h2 className="home-h2">Pathfinding</h2>
           <div className="home-button-grid">

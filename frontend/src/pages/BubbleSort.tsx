@@ -11,6 +11,7 @@ function BubbleSort() {
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
   const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [speed, setSpeed] = useState(1000);
 
   // Store active timeouts
   const timeoutsRef = useRef<number[]>([]);
@@ -47,7 +48,7 @@ function BubbleSort() {
         setHighlight(data[i].extras?.highlight || []);
         setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...(prev || []), data[i].msg]);
-      }, i * 1000);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     }
@@ -81,7 +82,12 @@ function BubbleSort() {
                 </div>
               </TransformComponent>
             </TransformWrapper>
-            <ControlPanel handleSort={handleSort} algorithmType="sort" />
+            <ControlPanel
+              setSpeed={setSpeed}
+              speed={speed}
+              handleSort={handleSort}
+              algorithmType="sort"
+            />
             <Logtracker logMsg={logMsg} />
           </div>
         </div>

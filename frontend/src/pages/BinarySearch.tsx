@@ -14,6 +14,7 @@ function BinarySearch() {
   const [bgHighlight, setBgHighlight] = useState<number[]>();
   const [targetNum, setTargetNum] = useState<number>(0);
   const timeoutsRef = useRef<number[]>([]);
+  const [speed, setSpeed] = useState(1000);
 
   const searchRequest: SearchRequest = { list, target: targetNum };
 
@@ -48,7 +49,7 @@ function BinarySearch() {
         setAlertHighlight(log.extras?.alertHighlight || []);
         setBgHighlight(log.extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
-      }, i * 1000);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     });
@@ -92,6 +93,8 @@ function BinarySearch() {
           algorithmType="search"
           handleSearch={handleSearch}
           setTargetNum={setTargetNum}
+          speed={speed}
+          setSpeed={setSpeed}
         />
         <Logtracker logMsg={logMsg} />
       </div>

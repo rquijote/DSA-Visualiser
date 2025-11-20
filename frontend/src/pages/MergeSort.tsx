@@ -12,6 +12,7 @@ function MergeSort() {
   const [highlight, setHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
   const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [speed, setSpeed] = useState(1000);
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -57,7 +58,7 @@ function MergeSort() {
         setHighlight(data[i].extras?.highlight || []);
         setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
-      }, i * 1500);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     }
@@ -107,7 +108,12 @@ function MergeSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <ControlPanel handleSort={handleSort} algorithmType="sort" />
+        <ControlPanel
+          handleSort={handleSort}
+          algorithmType="sort"
+          speed={speed}
+          setSpeed={setSpeed}
+        />
         <Logtracker logMsg={logMsg} />
       </div>
     </div>

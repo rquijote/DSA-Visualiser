@@ -12,6 +12,7 @@ function DepthFirstGraph() {
   const [bgHighlight, setBgHighlight] = useState<number[]>();
   const [searchNode, setSearchNode] = useState<number>(0);
   const timeoutsRef = useRef<number[]>([]);
+   const [speed, setSpeed] = useState(1000); 
 
   const graph: Record<number, number[]> = {
     1: [2, 7],
@@ -87,7 +88,7 @@ function DepthFirstGraph() {
         setAlertHighlight(log.extras?.alertHighlight || []);
         setBgHighlight(log.extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
-      }, i * 1000);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     });
@@ -162,6 +163,8 @@ function DepthFirstGraph() {
           setTargetNum={setSearchNode}
           handleSearch={handleSearch}
           handleTraverse={handleTraverse}
+          speed={speed}                
+          setSpeed={setSpeed}          
         />
         <Logtracker logMsg={logMsg} />
       </div>

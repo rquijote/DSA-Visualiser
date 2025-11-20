@@ -10,9 +10,9 @@ function InsertionSort() {
   const list = [1, 5, 8, 9, 2, 4, 11, 6];
   const [currentList, setCurrentList] = useState<number[]>(list);
   const [highlight, setHighlight] = useState<number[]>();
-  const [alertHighlight, setAlertHighlight] = useState<number[]>(); // Added state for alert highlights
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [speed, setSpeed] = useState(1000); // speed state
 
-  // Store active timeouts
   const timeoutsRef = useRef<number[]>([]);
 
   const handleSort = async () => {
@@ -31,26 +31,24 @@ function InsertionSort() {
   };
 
   function startVisualiser(data: Log[]) {
-    // Clear previous timeouts reference from for loop below. To reset on visualise
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
 
-    // Reset state
     setCurrentList(list);
     setHighlight([]);
     setAlertHighlight([]);
     setLogMsg([]);
 
-    for (let i = 0; i < data.length; i++) {
+    data.forEach((log, i) => {
       const timeout = setTimeout(() => {
-        setCurrentList(data[i].list);
-        setHighlight(data[i].extras?.highlight || []);
-        setAlertHighlight(data[i].extras?.alertHighlight || []); // Set alert highlights
-        setLogMsg((prev) => [...prev, data[i].msg]);
-      }, i * 1000);
+        setCurrentList(log.list);
+        setHighlight(log.extras?.highlight || []);
+        setAlertHighlight(log.extras?.alertHighlight || []);
+        setLogMsg((prev) => [...prev, log.msg]);
+      }, i * speed); // use speed here
 
       timeoutsRef.current.push(timeout);
-    }
+    });
   }
 
   return (
@@ -79,7 +77,15 @@ function InsertionSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <ControlPanel handleSort={handleSort} algorithmType="sort" />
+
+        {/* Pass speed and setSpeed to ControlPanel */}
+        <ControlPanel
+          handleSort={handleSort}
+          algorithmType="sort"
+          speed={speed}
+          setSpeed={setSpeed}
+        />
+
         <Logtracker logMsg={logMsg} />
       </div>
     </div>

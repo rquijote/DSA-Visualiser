@@ -12,6 +12,7 @@ function LinearSearch() {
   const [highlight, setHighlight] = useState<number[]>();
   const [targetNum, setTargetNum] = useState<number>(0);
   const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [speed, setSpeed] = useState(1000);
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -47,7 +48,7 @@ function LinearSearch() {
         setHighlight(data[i].extras?.highlight || []);
         setAlertHighlight(data[i].extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
-      }, i * 1000);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     }
@@ -83,6 +84,8 @@ function LinearSearch() {
           algorithmType="search"
           handleSearch={handleSearch}
           setTargetNum={setTargetNum}
+          speed={speed}
+          setSpeed={setSpeed}
         />
         <Logtracker logMsg={logMsg} />
       </div>

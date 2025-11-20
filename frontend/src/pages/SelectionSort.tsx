@@ -10,7 +10,9 @@ function SelectionSort() {
   const [logMsg, setLogMsg] = useState<string[]>([]);
   const [currentList, setCurrentList] = useState<number[]>(initialList);
   const [highlight, setHighlight] = useState<number[]>();
-  const [alertHighlight, setAlertHighlight] = useState<number[]>(); // Added for alert highlights
+  const [alertHighlight, setAlertHighlight] = useState<number[]>();
+  const [speed, setSpeed] = useState(1000); // speed state
+
   const timeoutsRef = useRef<number[]>([]);
 
   const handleSort = async () => {
@@ -43,7 +45,7 @@ function SelectionSort() {
         setHighlight(log.extras?.highlight || []);
         setAlertHighlight(log.extras?.alertHighlight || []);
         setLogMsg((prev) => [...prev, log.msg]);
-      }, i * 1000);
+      }, i * speed); // use speed here
 
       timeoutsRef.current.push(timeout);
     });
@@ -75,7 +77,14 @@ function SelectionSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <ControlPanel handleSort={handleSort} algorithmType="sort" />
+
+        <ControlPanel
+          handleSort={handleSort}
+          algorithmType="sort"
+          speed={speed}
+          setSpeed={setSpeed}
+        />
+
         <Logtracker logMsg={logMsg} />
       </div>
     </div>

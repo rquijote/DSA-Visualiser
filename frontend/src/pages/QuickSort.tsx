@@ -13,6 +13,7 @@ function QuickSort() {
   const [alertHighlight, setAlertHighlight] = useState<number[]>();
   const [bgHighlight, setBgHighlight] = useState<number[]>();
   const sortingRef = useRef<HTMLDivElement>(null);
+  const [speed, setSpeed] = useState(1000);
 
   const timeoutsRef = useRef<number[]>([]);
 
@@ -34,7 +35,9 @@ function QuickSort() {
   function processLog(newLog: Log) {
     setAllLogs((prev) => {
       const newDepth = newLog.extras?.depth ?? 0;
-      const updatedLogs = prev.filter((log) => (log.extras?.depth ?? 0) < newDepth);
+      const updatedLogs = prev.filter(
+        (log) => (log.extras?.depth ?? 0) < newDepth
+      );
       return [...updatedLogs, newLog];
     });
   }
@@ -56,7 +59,7 @@ function QuickSort() {
         setAlertHighlight(data[i].extras?.alertHighlight || []);
         setBgHighlight(data[i].extras?.bgHighlight || []);
         setLogMsg((prev) => [...prev, data[i].msg]);
-      }, i * 1500);
+      }, i * speed);
 
       timeoutsRef.current.push(timeout);
     }
@@ -80,8 +83,10 @@ function QuickSort() {
                 return (
                   <div className="sorting-div-merge-sort" key={logIdx}>
                     {log.list.map((number, index) => {
-                      const isHighlight = highlight?.includes(index) && isBottomRow;
-                      const isAlert = alertHighlight?.includes(index) && isBottomRow;
+                      const isHighlight =
+                        highlight?.includes(index) && isBottomRow;
+                      const isAlert =
+                        alertHighlight?.includes(index) && isBottomRow;
                       const isBg = bgHighlight?.includes(index) && isBottomRow;
 
                       return (
@@ -107,7 +112,12 @@ function QuickSort() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-        <ControlPanel handleSort={handleSort} algorithmType="sort" />
+        <ControlPanel
+  handleSort={handleSort}
+  algorithmType="sort"
+  speed={speed}
+  setSpeed={setSpeed}
+/>
         <Logtracker logMsg={logMsg} />
       </div>
     </div>

@@ -17,8 +17,9 @@ body {
 
 .main-title {
   font-size: 3rem;
-  margin: 30px 0 20px 0;
-  padding-bottom: 5px;
+  margin: 0px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .home-section {
@@ -53,4 +54,24 @@ body {
 
 .home-h2 {
   margin-bottom: 10px;
+}
+
+.home-subtitle-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.subtitle-link {
+  color: #000;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.subtitle-link:hover {
+  color: #333;
+}
+
+.home-subtitle-heading svg {
+  display: block;
 }
