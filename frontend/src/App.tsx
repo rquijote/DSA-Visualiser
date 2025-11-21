@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="home-container">
       <div className="home-content-container">
-        <h1 className="main-title">Algorithm Visualiser</h1>
+        <h1 className="main-title">Algorithms Visualiser</h1>
         <div className="home-subtitle-heading">
           <FaGithub />
           <a
