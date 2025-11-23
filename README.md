@@ -53,9 +53,9 @@
   <img src="githubimages/dfs.png" />
 </p> 
 
-### Insertion Sort
+### Bubble Sort
 <p align="middle">
-  <img src="githubimages/insertion.png" />
+  <img src="githubimages/bubble.png" />
 </p> 
 
 ### Binary Search
