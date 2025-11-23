@@ -58,6 +58,11 @@
   <img src="githubimages/insertion.png" />
 </p> 
 
+### Binary Search
+<p align="middle">
+  <img src="githubimages/binarysearch.png" />
+</p> 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Getting Started -->
