@@ -50,17 +50,17 @@
 
 ### Depth First Search 
 <p align="middle">
-  <img src="githubimages/dfs.png" />
+  <img src="githubimages/dfs.gif" />
 </p> 
 
 ### Bubble Sort
 <p align="middle">
-  <img src="githubimages/bubble.png" />
+  <img src="githubimages/bubble sort.gif" />
 </p> 
 
 ### Binary Search
 <p align="middle">
-  <img src="githubimages/binarysearch.png" />
+  <img src="githubimages/binary search.gif" />
 </p> 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
