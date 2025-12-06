@@ -29,7 +29,7 @@ function ControlPanel({
           onClick={() =>
             setSpeed &&
             setSpeed((prev) =>
-              prev ? (prev + 1000 > 10000 ? 10000 : prev + 1000) : 1000
+              prev ? (prev + 250 > 10000 ? 10000 : prev + 250) : 250
             )
           }
         >
@@ -41,7 +41,7 @@ function ControlPanel({
           onClick={() =>
             setSpeed &&
             setSpeed((prev) =>
-              prev && prev - 1000 < 1000 ? 1000 : prev - 1000
+              prev && prev - 250 < 250 ? 250 : prev - 250
             )
           }
         >
